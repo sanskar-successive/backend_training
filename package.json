@@ -1,15 +1,17 @@
 {
-  "type" : "module",
+  "type": "module",
   "name": "backend-training",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.2",
     "lodash": "^4.17.21"
   }
 }
