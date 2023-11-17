@@ -2,30 +2,19 @@ import { add, div, mult, sub } from "./lib/math.js";
 import fs from "fs";
 
 const args = process.argv;
-
-// const num1 = parseFloat(args[2])
-// const num2 = parseFloat(args[3]);
-
-// console.log(args);
-
-// const addition = add(num1,num2);
-// const subtraction = sub(num1,num2);
-// const multiplication = mult(num1,num2);
-// const division = div(num1,num2);
-
-// console.log(addition);
-
-// console.log(subtraction)
-
-// console.log(multiplication)
-
-// console.log(division)
-
 const operation = args[2];
 const num1 = parseFloat(args[3]);
 const num2 = parseFloat(args[4]);
-let result;
+const addition = add(num1,num2);
+const subtraction = sub(num1,num2);
+const multiplication = mult(num1,num2);
+const division = div(num1,num2);
+console.log(addition);
+console.log(subtraction)
+console.log(multiplication)
+console.log(division)
 
+let result;
 switch (operation) {
   case "add":
     result = add(num1, num2);
