@@ -1,16 +1,13 @@
 // import express from 'express'
-// import { dataSeeder } from '../public/js/dataSeeder';
+// import userRoutes from './routes/userRoutes.js'
+
 // const app = express();
 
-// app.get('/', (req,res) => {
-//     res.send('hi')
-// })
+// app.use(express.json());
 
-// app.post('/dataSeeder', (req,res)=>{
-//     res.send(dataSeeder)
-// })
+// app.use('/api/user', userRoutes);
 
-// const PORT = 5000
+// const PORT = 5000;
 // app.listen(PORT, ()=>{
-//     console.log(`server listening on port ${PORT}`)
+//     console.log(`server running on port ${PORT}`);
 // })
