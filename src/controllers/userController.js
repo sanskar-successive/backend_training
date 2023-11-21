@@ -1,7 +1,7 @@
 import fs from "fs";
 import { fileURLToPath } from "url";
 import path from "path";
-import users from "../../apiData.json" assert { type: "json" };
+import users from "../utils/data/apiData.json" assert { type: "json" };
 
 export const getAllUsersController = (req, res) => {
   console.log(users);
@@ -19,7 +19,7 @@ export const createUserController = (req, res) => {
   const newUser = req.body;
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
-  const filePath = path.join(__dirname, "../../apiData.json");
+  const filePath = path.join(__dirname, "../utils/data/apiData.json");
   users.push(newUser);
   fs.writeFileSync(filePath, JSON.stringify(users), (err) => {
     console.log("saved in file");
