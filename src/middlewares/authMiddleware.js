@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-export const authenticateUser = (req,res,next)=>{
+const authenticateUser = (req,res,next)=>{
     const token = req.headers.authorization
     if(!token) return res.json({error : "token not provided"})
 
@@ -13,3 +13,5 @@ export const authenticateUser = (req,res,next)=>{
         return res.status(401).json({error : "invalid token"})
     }
 }
+
+export default authenticateUser;
