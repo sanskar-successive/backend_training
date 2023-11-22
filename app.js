@@ -4,9 +4,7 @@ import { mockData } from './mockData.js';
 
 const app = express();
 const PORT = 5000;
-
 app.use(cookieParser())
-
 app.get('/', (req, res)=>{
     res.send(mockData)
 })
