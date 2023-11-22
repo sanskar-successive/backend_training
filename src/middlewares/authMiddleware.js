@@ -6,7 +6,6 @@ const authenticateUser = (req,res,next)=>{
     if(!token){
         return next(createError(403, 'forbidden, token not provided'))
     }
-
     try{
         const decodedUser = jwt.verify(token, "123");
         req.user = decodedUser;
