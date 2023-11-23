@@ -5,6 +5,10 @@ const args = process.argv;
 const operation = args[2];
 const num1 = parseFloat(args[3]);
 const num2 = parseFloat(args[4]);
+<<<<<<< HEAD
+let result;
+=======
+>>>>>>> fd116351fd6b50a5aabe5e08920efbbfb2a0489c
 const addition = add(num1,num2);
 const subtraction = sub(num1,num2);
 const multiplication = mult(num1,num2);

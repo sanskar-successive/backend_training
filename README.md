@@ -37,3 +37,32 @@ This guide will walk you through the steps to install Node.js on Ubuntu using `c
     ```
 
     This should display the installed Node.js and npm versions.
+
+
+# Install and set up the latest stable version of Postman.
+
+1. Open a terminal
+
+2. Add the postman repository
+
+    ```bash
+    sudo sh -c 'echo "deb https://dl.pstmn.io/download/latest/linux64" > /etc/apt/sources.list.d/postman.list'
+    ```
+
+3. Import the Postman GPG Key
+
+    ```bash
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
+    ```
+
+4. Update the package list
+
+    ```bash
+    sudo apt-get update
+    ```
+
+5. Install Postman
+
+    ```bash
+    sudo apt-get install postman
+    ```
