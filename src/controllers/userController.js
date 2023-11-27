@@ -4,7 +4,6 @@ import path from "path";
 import users from "../utils/data/apiData.json" assert { type: "json" };
 
 export const getAllUsersController = (req, res) => {
-  console.log(users);
   return res.status(200).json(users);
 };
 

@@ -5,10 +5,43 @@ import {
   getUserByIdController,
 } from "../controllers/userController.js";
 import { authenticateUser } from "../middlewares/authMiddleware.js";
+import { logEvents } from "../middlewares/loggerMiddleware.js";
+import { customHeader } from "../middlewares/customHeaderMiddleware.js";
+import { requestLimiter } from "../middlewares/requestLimiterMiddleware.js";
 
 const router = express.Router();
-router.get("/show", authenticateUser, getAllUsersController);
-router.get("/show/:id", authenticateUser, getUserByIdController);
-router.post("/create", authenticateUser, createUserController);
+router.get(
+  "/show",
+  requestLimiter(5, 5),
+  logEvents,
+  authenticateUser,
+  customHeader({
+    'custom_header_1' : "custom_header_value_1",
+    'custom_header_2' : "custom_header_value_2",
+  }),
+  getAllUsersController
+);
+router.get(
+  "/show/:id",
+  requestLimiter(5, 5),
+  logEvents,
+  authenticateUser,
+  customHeader({
+    'custom_header_1' : "custom_header_value_1",
+    'custom_header_2' : "custom_header_value_2",
+  }),
+  getUserByIdController
+);
+router.post(
+  "/create",
+  requestLimiter(5, 5),
+  logEvents,
+  authenticateUser,
+  customHeader({
+    'custom_header_1' : "custom_header_value_1",
+    'custom_header_2' : "custom_header_value_2",
+  }),
+  createUserController
+);
 
 export default router;
