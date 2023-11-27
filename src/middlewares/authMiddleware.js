@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import CustomError from "../utils/errorClass.js";
 
-export const authenticateUser = (req, res, next) => {
+const authenticateUser = (req, res, next) => {
   try {
     const token = req.headers.authorization;
     if (!token) {
@@ -17,3 +17,5 @@ export const authenticateUser = (req, res, next) => {
     next(err);
   }
 };
+
+export default authenticateUser;

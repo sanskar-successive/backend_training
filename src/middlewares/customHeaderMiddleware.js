@@ -1,6 +1,6 @@
 import CustomError from "../utils/errorClass.js";
 
-export const customHeader = (custom_header) => {
+const customHeader = (custom_header) => {
 
   return (req, res, next) => {
     try {
@@ -17,3 +17,5 @@ export const customHeader = (custom_header) => {
     }
   };
 };
+
+export default customHeader;

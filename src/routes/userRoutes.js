@@ -4,10 +4,9 @@ import {
   getAllUsersController,
   getUserByIdController,
 } from "../controllers/userController.js";
-import { authenticateUser } from "../middlewares/authMiddleware.js";
-import { logEvents } from "../middlewares/loggerMiddleware.js";
-import { customHeader } from "../middlewares/customHeaderMiddleware.js";
-import { requestLimiter } from "../middlewares/requestLimiterMiddleware.js";
+
+import {requestLimiter, logEvents, authenticateUser, customHeader} from '../middlewares/index.js'
+
 
 const router = express.Router();
 router.get(
