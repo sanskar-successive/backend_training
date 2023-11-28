@@ -3,7 +3,7 @@ const requestLimiter = (reqLimit, timeLimit) => {
   let countReq = 0;
 
   return (req, res, next) => {
-    if (countReq === 0) {
+    if (!countReq) {
       initReqTime = new Date().getSeconds();
       currReqTime = new Date().getSeconds();
     } else {
