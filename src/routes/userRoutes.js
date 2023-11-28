@@ -17,6 +17,7 @@ import {
 
 const router = express.Router();
 
+
 router.use(dynamicValidation)
 
 router.post('/login', (req, res)=>{
