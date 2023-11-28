@@ -4,15 +4,13 @@ import {
   getAllUsersController,
   getUserByIdController,
 } from "../controllers/userController.js";
-
-import {requestLimiter, logEvents, authenticateUser, customHeader} from '../middlewares/index.js'
-
+import {requestLimiter, authenticateUser, customHeader} from '../middlewares/index.js'
 
 const router = express.Router();
+
 router.get(
   "/show",
   requestLimiter(5, 5),
-  logEvents,
   authenticateUser,
   customHeader({
     'custom_header_1' : "custom_header_value_1",
@@ -23,7 +21,6 @@ router.get(
 router.get(
   "/show/:id",
   requestLimiter(5, 5),
-  logEvents,
   authenticateUser,
   customHeader({
     'custom_header_1' : "custom_header_value_1",
@@ -34,7 +31,6 @@ router.get(
 router.post(
   "/create",
   requestLimiter(5, 5),
-  logEvents,
   authenticateUser,
   customHeader({
     'custom_header_1' : "custom_header_value_1",

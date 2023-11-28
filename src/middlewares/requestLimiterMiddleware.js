@@ -10,7 +10,6 @@ const requestLimiter = (reqLimit, timeLimit) => {
       currReqTime = new Date().getSeconds();
       if (currReqTime < initReqTime) currReqTime += 59;
     }
-
     if (countReq < reqLimit && currReqTime <= initReqTime + timeLimit) {
       countReq++;
       next();
