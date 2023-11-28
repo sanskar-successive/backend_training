@@ -4,7 +4,6 @@ import {
   getAllUsersController,
   getUserByIdController,
 } from "../controllers/userController.js";
-
 import {
   requestLimiter,
   authenticateUser,
@@ -17,47 +16,57 @@ import {
 
 const router = express.Router();
 
+const asyncHandler = async (req, res) => {
+  const promise = new Promise((resolve, reject) => {
+    reject("Promise nhi nibha paya");
+    resolve("Promise pura kr diya");
+  });
+  try {
+    const response = await promise;
+    res.status(200).json({ message: response });
+  } catch (err) {
+    res.status(400).json({ error: err });
+  }
+};
 
-router.use(dynamicValidation)
+router.use("/async", asyncHandler);
 
-router.post('/login', (req, res)=>{
-  res.send("in login route")
-})
+router.use(dynamicValidation);
 
-router.post('/register', (req, res)=>{
-  res.send("in register route")
-})
+router.post("/login", (req, res) => {
+  res.send("in login route");
+});
+router.post("/register", (req, res) => {
+  res.send("in register route");
+});
 
 router.use(authenticateUser);
+router.use(requestLimiter(5, 5));
 
 router.get(
   "/show",
   getGeoLocation,
-  requestLimiter(5, 5),
   customHeader({
-    'X-custom_header_get_1': "custom_header_value_1",
-    'X-custom_header_get_2': "custom_header_value_2",
+    "X-custom_header_get_1": "custom_header_value_1",
+    "X-custom_header_get_2": "custom_header_value_2",
   }),
   queryValidation,
   getAllUsersController
 );
-
 router.get(
   "/show/:id",
-  requestLimiter(5, 5),
   customHeader({
-    'X-custom_header_getByID_1': "custom_header_value_1",
-    'X-custom_header_getByID_2': "custom_header_value_2",
+    "X-custom_header_getByID_1": "custom_header_value_1",
+    "X-custom_header_getByID_2": "custom_header_value_2",
   }),
   getUserByIdController
 );
 router.post(
   "/create",
-  requestLimiter(5, 5),
   validateUser,
   customHeader({
-    'X-custom_header_post_1': "custom_header_value_1",
-    'X-custom_header_post_2': "custom_header_value_2",
+    "X-custom_header_post_1": "custom_header_value_1",
+    "X-custom_header_post_2": "custom_header_value_2",
   }),
   createUserController
 );
