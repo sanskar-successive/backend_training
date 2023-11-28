@@ -18,6 +18,5 @@ const getGeoLocation = async (req, res, next) => {
   catch(err){
     next(new CustomError('Error occured in data fetching', 403))
   }
-  
 };
 export default getGeoLocation;

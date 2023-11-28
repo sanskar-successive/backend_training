@@ -4,5 +4,4 @@ class CustomError extends Error {
     this.statusCode = statusCode;
   }
 }
-
 export default CustomError;
