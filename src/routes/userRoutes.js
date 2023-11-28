@@ -4,12 +4,61 @@ import {
   getAllUsersController,
   getUserByIdController,
 } from "../controllers/userController.js";
-import authenticateUser from "../middlewares/authMiddleware.js";
-import validateUser from "../middlewares/validationMiddleware.js";
+
+import {
+  requestLimiter,
+  authenticateUser,
+  customHeader,
+  validateUser,
+  queryValidation,
+  getGeoLocation,
+  dynamicValidation,
+} from "../middlewares/index.js";
 
 const router = express.Router();
-router.get("/show", authenticateUser, getAllUsersController);
-router.get("/show/:id",authenticateUser, getUserByIdController);
-router.post("/create", authenticateUser,validateUser, createUserController);
+
+router.use(dynamicValidation)
+
+router.post('/login', (req, res)=>{
+  res.send("in login route")
+})
+
+router.post('/register', (req, res)=>{
+  res.send("in register route")
+})
+
+router.use(authenticateUser);
+
+router.get(
+  "/show",
+  getGeoLocation,
+  requestLimiter(5, 5),
+  customHeader({
+    'X-custom_header_get_1': "custom_header_value_1",
+    'X-custom_header_get_2': "custom_header_value_2",
+  }),
+  queryValidation,
+  getAllUsersController
+);
+
+router.get(
+  "/show/:id",
+  requestLimiter(5, 5),
+  customHeader({
+    'X-custom_header_getByID_1': "custom_header_value_1",
+    'X-custom_header_getByID_2': "custom_header_value_2",
+  }),
+  getUserByIdController
+);
+router.post(
+  "/create",
+  requestLimiter(5, 5),
+  validateUser,
+  customHeader({
+    'X-custom_header_post_1': "custom_header_value_1",
+    'X-custom_header_post_2': "custom_header_value_2",
+  }),
+  createUserController
+);
 
 export default router;

@@ -1,19 +1,19 @@
-import jwt from 'jsonwebtoken'
-import createError from "http-errors";
+import jwt from "jsonwebtoken";
+import CustomError from "../utils/errorClass.js";
 
-const authenticateUser = (req,res,next)=>{
-    const token = req.headers.authorization
-    if(!token){
-        return next(createError(403, 'forbidden, token not provided'))
+const authenticateUser = (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    if (!token) {
+      next(new CustomError("token not provided", 403));
+    } else {
+      const decodedUser = jwt.verify(token, "123");
+      req.user = decodedUser;
+      next();
     }
-    try{
-        const decodedUser = jwt.verify(token, "123");
-        req.user = decodedUser;
-        next();
-    }
-    catch(err){
-        return next(createError(401, 'Unauthorized, invalid token'))
-    }
-}
+  } catch (err) {
+    next(new CustomError("invalid token", 401));
+  }
+};
 
 export default authenticateUser;

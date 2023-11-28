@@ -5,7 +5,6 @@ const args = process.argv;
 const operation = args[2];
 const num1 = parseFloat(args[3]);
 const num2 = parseFloat(args[4]);
-let result;
 const addition = add(num1,num2);
 const subtraction = sub(num1,num2);
 const multiplication = mult(num1,num2);
@@ -15,6 +14,7 @@ console.log(subtraction)
 console.log(multiplication)
 console.log(division)
 
+let result;
 switch (operation) {
   case "add":
     result = add(num1, num2);
