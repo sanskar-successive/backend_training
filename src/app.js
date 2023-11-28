@@ -1,10 +1,11 @@
 import express from "express";
 import userRoutes from "./routes/userRoutes.js";
-import { errorHandler } from "./middlewares/index.js";
+import { errorHandler, logEvents } from "./middlewares/index.js";
 
 
 const app = express();
 app.use(express.json());
+app.use(logEvents);
 
 // app.post("/login", (req, res) => {
 //   res.send('abcd')

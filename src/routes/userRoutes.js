@@ -7,7 +7,6 @@ import {
 
 import {
   requestLimiter,
-  logEvents,
   authenticateUser,
   customHeader,
   validateUser,
@@ -18,7 +17,6 @@ import {
 
 const router = express.Router();
 
-router.use(logEvents)
 router.use(dynamicValidation)
 
 router.post('/login', (req, res)=>{
@@ -29,15 +27,15 @@ router.post('/register', (req, res)=>{
   res.send("in register route")
 })
 
+router.use(authenticateUser);
 
 router.get(
   "/show",
   getGeoLocation,
   requestLimiter(5, 5),
-  authenticateUser,
   customHeader({
-    'custom_header_1': "custom_header_value_1",
-    'custom_header_2': "custom_header_value_2",
+    'X-custom_header_get_1': "custom_header_value_1",
+    'X-custom_header_get_2': "custom_header_value_2",
   }),
   queryValidation,
   getAllUsersController
@@ -46,21 +44,19 @@ router.get(
 router.get(
   "/show/:id",
   requestLimiter(5, 5),
-  authenticateUser,
   customHeader({
-    'custom_header_1': "custom_header_value_1",
-    'custom_header_2': "custom_header_value_2",
+    'X-custom_header_getByID_1': "custom_header_value_1",
+    'X-custom_header_getByID_2': "custom_header_value_2",
   }),
   getUserByIdController
 );
 router.post(
   "/create",
   requestLimiter(5, 5),
-  authenticateUser,
   validateUser,
   customHeader({
-    'custom_header_1': "custom_header_value_1",
-    'custom_header_2': "custom_header_value_2",
+    'X-custom_header_post_1': "custom_header_value_1",
+    'X-custom_header_post_2': "custom_header_value_2",
   }),
   createUserController
 );

@@ -3,18 +3,24 @@ import CustomError from "../utils/errorClass.js";
 import validationConfig from "../utils/validationConfig.js";
 
 const dynamicValidation = (req, res, next) => {
-  const path = req.url;
-  console.log(path);
-  const schema = validationConfig[path];
-
-  const toValidate = req.body;
-
-  const {value, error} = schema.validate(toValidate);
-
-  if(error){
-      res.send('Error occured during schema validation')
+  try {
+    const path = req.url;
+    if (Object.keys(validationConfig).includes(path)) {
+      const schema = validationConfig[path];
+      const toValidate = req.body;
+      if (!Object.keys(toValidate).length) {
+        next(new CustomError("got an empty object", 411));
+        return;
+      }
+      const { value, error } = schema.validate(toValidate);
+      if (error) {
+        next(new CustomError("Not acceptable", 406));
+        return;
+      }
+    }
+    next();
+  } catch (err) {
+    next(new CustomError("internal server error", 500));
   }
-
-  next();
 };
 export default dynamicValidation;
