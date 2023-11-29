@@ -55,6 +55,7 @@ router.get(
 );
 router.get(
   "/show/:id",
+  getGeoLocation,
   paramValidation,
   customHeader({
     "X-custom_header_getByID_1": "custom_header_value_1",
