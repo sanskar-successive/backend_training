@@ -2,7 +2,6 @@ import CustomError from "../utils/errorClass.js";
 import axios from 'axios'
 
 const getGeoLocation = async (req, res, next) => {
-
   try{
     const key = "29f6aafef213de059431ac964c670b6d";
     const ip = "103.83.71.179";
