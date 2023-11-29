@@ -12,6 +12,7 @@ import {
   queryValidation,
   getGeoLocation,
   dynamicValidation,
+  paramValidation,
 } from "../middlewares/index.js";
 
 const router = express.Router();
@@ -30,10 +31,9 @@ const asyncHandler = async (req, res) => {
 };
 
 router.use("/async", asyncHandler);
-
 router.use(dynamicValidation);
 
-router.post("/login", (req, res) => {
+router.post("/login",(req, res) => {
   res.send("in login route");
 });
 router.post("/register", (req, res) => {
@@ -55,6 +55,7 @@ router.get(
 );
 router.get(
   "/show/:id",
+  paramValidation,
   customHeader({
     "X-custom_header_getByID_1": "custom_header_value_1",
     "X-custom_header_getByID_2": "custom_header_value_2",
