@@ -11,19 +11,9 @@ import {
   validateUser,
   queryValidation,
   getGeoLocation,
-  dynamicValidation,
 } from "../middlewares/index.js";
 
 const router = express.Router();
-
-router.use(dynamicValidation)
-
-router.post('/login', (req, res)=>{
-  res.send("in login route")
-})
-router.post('/register', (req, res)=>{
-  res.send("in register route")
-})
 
 router.use(authenticateUser);
 router.use(requestLimiter(5,5))

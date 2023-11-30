@@ -5,8 +5,11 @@ import validationConfig from "../utils/validationConfig.js";
 const dynamicValidation = (req, res, next) => {
   try {
     const path = req.url;
-    if (Object.keys(validationConfig).includes(path)) {
-      const schema = validationConfig[path];
+    const method = req.method;
+    const key = `${path} ${method}`;
+    console.log(key);
+    if (Object.keys(validationConfig).includes(key)) {
+      const schema = validationConfig[key];
       const toValidate = req.body;
       const { value, error } = schema.validate(toValidate,{abortEarly : false});
       if (error) {
