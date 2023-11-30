@@ -17,10 +17,9 @@ export const getUserByIdController = (req:Request, res:Response) => {
 
 export const createUserController = (req:Request, res:Response) => {
   const newUser = req.body;
-  // const __filename = fileURLToPath(import.meta.url);
-  // const __dirname = path.dirname(__filename);
-  // const filePath = path.join(__dirname, "../utils/data/apiData.json");
-  const filePath = '../utils/data/apiData.json'
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+  const filePath = path.join(__dirname, "../utils/data/apiData.json");
   users.push(newUser);
   fs.writeFileSync(filePath, JSON.stringify(users));
   return res
