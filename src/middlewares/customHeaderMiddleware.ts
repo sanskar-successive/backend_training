@@ -1,8 +1,9 @@
+import { NextFunction, Request, Response } from "express";
 import CustomError from "../utils/errorClass.js";
 
-const customHeader = (custom_header) => {
+const customHeader = (custom_header : Object) => {
 
-  return (req, res, next) => {
+  return (req:Request, res:Response, next:NextFunction) => {
     try {
       if (!Object.keys(custom_header).length) {
         next(new CustomError("nothing provided in header", 411));

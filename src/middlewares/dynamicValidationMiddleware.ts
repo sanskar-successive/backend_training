@@ -1,8 +1,8 @@
-import joi from "joi";
+import { NextFunction, Request, Response } from "express";
 import CustomError from "../utils/errorClass.js";
 import validationConfig from "../utils/validationConfig.js";
 
-const dynamicValidation = (req, res, next) => {
+const dynamicValidation = (req:Request, res:Response, next:NextFunction) => {
   try {
     const path = req.url;
     if (Object.keys(validationConfig).includes(path)) {

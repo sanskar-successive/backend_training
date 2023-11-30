@@ -1,5 +1,6 @@
+import { NextFunction, Request, Response } from "express";
 import CustomError from "../utils/errorClass.js";
-const queryValidation = (req, res, next) => {
+const queryValidation = (req:Request, res:Response, next:NextFunction) => {
   try{
     const query = req.query;
     if(!Object.keys(query).length){

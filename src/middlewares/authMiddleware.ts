@@ -1,7 +1,8 @@
-import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
 import CustomError from "../utils/errorClass.js";
+import { NextFunction, Request, Response } from 'express';
 
-const authenticateUser = (req, res, next) => {
+const authenticateUser = (req:Request, res:Response, next:NextFunction) => {
   try {
     const token = req.headers.authorization;
     if (!token) {

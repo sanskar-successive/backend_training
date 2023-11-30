@@ -1,20 +1,21 @@
 import fs from "fs";
 import { fileURLToPath } from "url";
 import path from "path";
-import users from "../utils/data/apiData.json" assert { type: "json" };
+import users from "../utils/data/apiData.json";
+import { Request, Response } from "express";
 
-export const getAllUsersController = (req, res) => {
+export const getAllUsersController = (req:Request, res:Response) => {
   return res.status(200).json(users);
 };
 
-export const getUserByIdController = (req, res) => {
+export const getUserByIdController = (req:Request, res:Response) => {
   const { id } = req.params;
   const user = users.find((user) => user.id === parseInt(id));
   if (user) return res.json(user);
   return res.status(404).json({ error: "user not found" });
 };
 
-export const createUserController = (req, res) => {
+export const createUserController = (req:Request, res:Response) => {
   const newUser = req.body;
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);

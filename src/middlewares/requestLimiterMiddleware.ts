@@ -1,7 +1,9 @@
-const requestLimiter = (reqLimit, timeLimit) => {
-  let initReqTime, currReqTime;
+import { NextFunction, Request, Response } from "express";
+
+const requestLimiter = (reqLimit:number, timeLimit:number) => {
+  let initReqTime:number, currReqTime:number;
   let countReq = 0;
-  return (req, res, next) => {
+  return (req:Request, res:Response, next:NextFunction) => {
     if (!countReq) {
       initReqTime = new Date().getSeconds();
       currReqTime = new Date().getSeconds();
