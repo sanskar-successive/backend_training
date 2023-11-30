@@ -8,13 +8,9 @@ const dynamicValidation = (req, res, next) => {
     if (Object.keys(validationConfig).includes(path)) {
       const schema = validationConfig[path];
       const toValidate = req.body;
-      if (!Object.keys(toValidate).length) {
-        next(new CustomError("got an empty object", 411));
-        return;
-      }
-      const { value, error } = schema.validate(toValidate);
+      const { value, error } = schema.validate(toValidate,{abortEarly : false});
       if (error) {
-        next(new CustomError("Not acceptable", 406));
+        res.status(406).json(error);
         return;
       }
     }

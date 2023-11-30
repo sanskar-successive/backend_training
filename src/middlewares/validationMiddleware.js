@@ -5,13 +5,9 @@ import CustomError from "../utils/errorClass.js";
 const validateUser = (req, res, next) => {
   try {
     const user = req.body;
-    if(!Object.keys(user).length){
-      next(new CustomError('user is empty', 411));
-      return;
-    }
-    const { value, error } = userSchema.validate(user);
+    const { value, error } = userSchema.validate(user, {abortEarly : false});
     if (error) {
-      next(new CustomError('Not acceptable', 406))
+      res.status(406).json(error)
     }
     else
       next();
