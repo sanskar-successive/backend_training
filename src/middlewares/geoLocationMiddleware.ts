@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import CustomError from "../utils/errorClass.js";
 import axios from 'axios'
+import CreateError from 'http-errors'
 
 const getGeoLocation = async (req:Request, res:Response, next:NextFunction) => {
   try{
@@ -12,11 +12,11 @@ const getGeoLocation = async (req:Request, res:Response, next:NextFunction) => {
       next();
     }
     else{
-      next(new CustomError('Not authorised', 401));
+      next(CreateError(401, 'not authorized'))
     }
   }
   catch(err){
-    next(new CustomError('Error occured in data fetching', 403))
+    next(CreateError(403, 'error occured in data fetching'))
   }
 };
 export default getGeoLocation;

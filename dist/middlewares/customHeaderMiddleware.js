@@ -1,9 +1,9 @@
-import CustomError from "../utils/errorClass.js";
+import CreateError from 'http-errors';
 const customHeader = (custom_header) => {
     return (req, res, next) => {
         try {
             if (!Object.keys(custom_header).length) {
-                next(new CustomError("nothing provided in header", 411));
+                next(CreateError(411, 'nothing provided in header'));
             }
             else {
                 res.set(custom_header);
@@ -11,7 +11,7 @@ const customHeader = (custom_header) => {
             }
         }
         catch (err) {
-            next(new CustomError("internal server error", 500));
+            next(CreateError(500, 'internal server error'));
         }
     };
 };

@@ -1,20 +1,22 @@
-import CustomError from "../utils/errorClass.js";
+import CreateError from 'http-errors';
 const queryValidation = (req, res, next) => {
     try {
         const query = req.query;
+        console.log(query);
         if (!Object.keys(query).length) {
             next();
             return;
         }
-        if (isNaN(query.query1)) {
-            next(new CustomError("not a numeric value", 406));
+        const queryToCheck = query.query1;
+        if (isNaN(queryToCheck)) {
+            next(CreateError(406, 'not a numeric value'));
         }
         else {
             next();
         }
     }
     catch (err) {
-        next(new CustomError('Internal server error', 500));
+        next(CreateError(500, 'internal server error'));
     }
 };
 export default queryValidation;

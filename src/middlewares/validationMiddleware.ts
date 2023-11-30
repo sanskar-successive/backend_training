@@ -1,23 +1,23 @@
 import joi from "joi";
 import { userSchema } from "../utils/schema/userSchema.js";
-import CustomError from "../utils/errorClass.js";
 import { NextFunction, Request, Response } from "express";
+import CreateError from 'http-errors'
 
 const validateUser = (req:Request, res:Response, next:NextFunction) => {
   try {
     const user = req.body;
     if(!Object.keys(user).length){
-      next(new CustomError('user is empty', 411));
+      next(CreateError(411, 'user is empty'))
       return;
     }
     const { value, error } = userSchema.validate(user);
     if (error) {
-      next(new CustomError('Not acceptable', 406))
+      next(CreateError(406, 'not acceptable'))
     }
     else
       next();
   } catch (err) {
-    next(new CustomError('Internal server error', 500))
+    next(CreateError(500, 'internal server error'))
   }
 };
 export default validateUser;

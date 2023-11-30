@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import {
   createUserController,
   getAllUsersController,
@@ -18,10 +18,10 @@ const router = express.Router();
 
 router.use(dynamicValidation)
 
-router.post('/login', (req, res)=>{
+router.post('/login', (req:Request, res:Response)=>{
   res.send("in login route")
 })
-router.post('/register', (req, res)=>{
+router.post('/register', (req:Request, res:Response)=>{
   res.send("in register route")
 })
 

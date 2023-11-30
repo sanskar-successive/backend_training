@@ -7,8 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import CustomError from "../utils/errorClass.js";
 import axios from 'axios';
+import CreateError from 'http-errors';
 const getGeoLocation = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const key = "29f6aafef213de059431ac964c670b6d";
@@ -19,11 +19,11 @@ const getGeoLocation = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
             next();
         }
         else {
-            next(new CustomError('Not authorised', 401));
+            next(CreateError(401, 'not authorized'));
         }
     }
     catch (err) {
-        next(new CustomError('Error occured in data fetching', 403));
+        next(CreateError(403, 'error occured in data fetching'));
     }
 });
 export default getGeoLocation;

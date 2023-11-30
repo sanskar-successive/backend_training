@@ -1,7 +1,7 @@
 import fs from "fs";
 import { fileURLToPath } from "url";
 import path from "path";
-import users from "../utils/data/apiData.json";
+import users from "../utils/data/apiData.json" assert { type: "json" };
 import { Request, Response } from "express";
 
 export const getAllUsersController = (req:Request, res:Response) => {
@@ -17,13 +17,12 @@ export const getUserByIdController = (req:Request, res:Response) => {
 
 export const createUserController = (req:Request, res:Response) => {
   const newUser = req.body;
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = path.dirname(__filename);
-  const filePath = path.join(__dirname, "../utils/data/apiData.json");
+  // const __filename = fileURLToPath(import.meta.url);
+  // const __dirname = path.dirname(__filename);
+  // const filePath = path.join(__dirname, "../utils/data/apiData.json");
+  const filePath = '../utils/data/apiData.json'
   users.push(newUser);
-  fs.writeFileSync(filePath, JSON.stringify(users), (err) => {
-    console.log("saved in file");
-  });
+  fs.writeFileSync(filePath, JSON.stringify(users));
   return res
     .status(201)
     .json({ message: "User created successfully", user: newUser });

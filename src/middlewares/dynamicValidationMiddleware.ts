@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import CustomError from "../utils/errorClass.js";
 import validationConfig from "../utils/validationConfig.js";
+import CreateError from 'http-errors'
 
 const dynamicValidation = (req:Request, res:Response, next:NextFunction) => {
   try {
@@ -9,18 +9,18 @@ const dynamicValidation = (req:Request, res:Response, next:NextFunction) => {
       const schema = validationConfig[path];
       const toValidate = req.body;
       if (!Object.keys(toValidate).length) {
-        next(new CustomError("got an empty object", 411));
+        next(CreateError(411, 'got an empty object'))
         return;
       }
       const { value, error } = schema.validate(toValidate);
       if (error) {
-        next(new CustomError("Not acceptable", 406));
+        next(CreateError(406, 'not acceptable'))
         return;
       }
     }
     next();
   } catch (err) {
-    next(new CustomError("internal server error", 500));
+    next(CreateError(500, 'internal server error'))
   }
 };
 export default dynamicValidation;

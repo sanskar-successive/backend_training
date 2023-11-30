@@ -1,5 +1,8 @@
-import joi from "joi";
-const validationConfig = {
+import joi, { ObjectSchema } from "joi";
+interface validationInterface{
+  [key : string]:ObjectSchema<any>
+}
+const validationConfig :validationInterface = {
   "/login": joi.object({
     email: joi.string().email().required(),
     password: joi
