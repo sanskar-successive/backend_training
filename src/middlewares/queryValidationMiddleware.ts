@@ -7,7 +7,10 @@ const queryValidation = (req:Request, res:Response, next:NextFunction) => {
       next();
       return;
     }
-    if (isNaN(query.query1)) {
+
+    console.log(typeof query.query1); 
+
+    if (isNaN(queryToCheck)) {
       next(new CustomError("not a numeric value", 406));
     } else {
       next();

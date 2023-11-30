@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import CustomError from "../utils/errorClass.js";
 
-const customHeader = (custom_header : Object) => {
+const customHeader = (custom_header:any) => {
 
   return (req:Request, res:Response, next:NextFunction) => {
     try {
