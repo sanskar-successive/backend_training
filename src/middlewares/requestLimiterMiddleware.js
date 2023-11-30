@@ -1,7 +1,6 @@
 const requestLimiter = (reqLimit, timeLimit) => {
   let initReqTime, currReqTime;
   let countReq = 0;
-
   return (req, res, next) => {
     if (!countReq) {
       initReqTime = new Date().getSeconds();
