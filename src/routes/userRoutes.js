@@ -17,28 +17,7 @@ import {
 
 const router = express.Router();
 
-const asyncHandler = async (req, res) => {
-  const promise = new Promise((resolve, reject) => {
-    reject("Promise nhi nibha paya");
-    resolve("Promise pura kr diya");
-  });
-  try {
-    const response = await promise;
-    res.status(200).json({ message: response });
-  } catch (err) {
-    res.status(400).json({ error: err });
-  }
-};
-
-router.use("/async", asyncHandler);
-router.use(dynamicValidation);
-
-router.post("/login",(req, res) => {
-  res.send("in login route");
-});
-router.post("/register", (req, res) => {
-  res.send("in register route");
-});
+router.get("/async", asyncHandler);
 
 router.use(authenticateUser);
 router.use(requestLimiter(5, 5));

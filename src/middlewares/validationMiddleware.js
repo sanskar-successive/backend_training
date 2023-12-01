@@ -10,9 +10,9 @@ const validateUser = (req, res, next) => {
       next(CreateError(411, 'user is empty'))
       return;
     }
-    const { value, error } = userSchema.validate(user);
+    const { value, error } = userSchema.validate(user, {abortEarly : false});
     if (error) {
-      next(CreateError(406, 'not acceptable'))
+      res.status(406).json(error)
     }
     else
       next();

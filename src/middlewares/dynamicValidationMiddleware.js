@@ -6,16 +6,15 @@ import CreateError from 'http-errors';
 const dynamicValidation = (req, res, next) => {
   try {
     const path = req.url;
-    if (Object.keys(validationConfig).includes(path)) {
-      const schema = validationConfig[path];
+    const method = req.method;
+    const key = `${path.substring(1)} ${method}`;
+    console.log(key);
+    if (Object.keys(validationConfig).includes(key)) {
+      const schema = validationConfig[key];
       const toValidate = req.body;
-      if (!Object.keys(toValidate).length) {
-        next(CreateError(411, 'got an empty object'))
-        return;
-      }
-      const { value, error } = schema.validate(toValidate);
+      const { value, error } = schema.validate(toValidate,{abortEarly : false});
       if (error) {
-        next(CreateError(406, 'not acceptable'))
+        res.status(406).json(error);
         return;
       }
     }
