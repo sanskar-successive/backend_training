@@ -14,6 +14,7 @@ import {
   dynamicValidation,
   paramValidation,
 } from "../middlewares/index.js";
+import asyncHandler from "../controllers/asyncController.js";
 
 const router = express.Router();
 
