@@ -1,9 +1,9 @@
 import joi from "joi";
 import { userSchema } from "../utils/schema/userSchema.js";
-import CustomError from "../utils/errorClass.js";
 import CreateError from 'http-errors';
+import { NextFunction, Request, Response } from "express";
 
-const validateUser = (req, res, next) => {
+const validateUser = (req:Request, res:Response, next:NextFunction) => {
   try {
     const user = req.body;
     if(!Object.keys(user).length){

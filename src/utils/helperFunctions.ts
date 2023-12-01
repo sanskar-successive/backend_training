@@ -1,4 +1,4 @@
-const checkAlphabets = (input)=> { 
+const checkAlphabets = (input:string)=> { 
     for (const char of input) { 
         if (!(char >= "a" && char <= "z") && 
             !(char >= "A" && char <= "Z")) { 

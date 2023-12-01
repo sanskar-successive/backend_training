@@ -1,8 +1,15 @@
 import jwt from "jsonwebtoken";
-import CustomError from "../utils/errorClass.js";
 import CreateError from 'http-errors';
+import { NextFunction, Request, Response } from "express";
 
-const authenticateUser = (req, res, next) => {
+
+declare module 'express' {
+  interface Request {
+    user?: any;
+  }
+}
+
+const authenticateUser = (req:Request, res:Response, next:NextFunction) => {
   try {
     const token = req.headers.authorization;
     if (!token) {

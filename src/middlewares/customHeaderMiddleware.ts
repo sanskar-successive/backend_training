@@ -1,9 +1,9 @@
-import CustomError from "../utils/errorClass.js";
 import CreateError from 'http-errors';
+import { NextFunction, Request, Response } from "express";
 
-const customHeader = (custom_header) => {
+const customHeader = (custom_header:any) => {
 
-  return (req, res, next) => {
+  return (req:Request, res:Response, next:NextFunction) => {
     try {
       if (!Object.keys(custom_header).length) {
         next(CreateError(411,'header is not provided'))
