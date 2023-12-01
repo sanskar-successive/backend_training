@@ -11,7 +11,7 @@ const queryValidation = (req:Request, res:Response, next:NextFunction) => {
     }
     const queryToCheck:any = query.query1;
     if (isNaN(queryToCheck)) {
-      next(CreateError(406, 'not a numeric value'))
+      next(CreateError(406, 'query not a numeric value'))
     } else {
       next();
     }

@@ -19,7 +19,7 @@ const getGeoLocation = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
             next();
         }
         else {
-            next(CreateError(401, 'not authorized'));
+            next(CreateError(401, 'geoloaction not authorized'));
         }
     }
     catch (err) {

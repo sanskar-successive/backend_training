@@ -20,7 +20,7 @@ const requestLimiter = (reqLimit, timeLimit) => {
             next();
         }
         else {
-            res.status(429).json({ message: "too many requests " });
+            res.status(429).json({ message: "too many requests, rate limiting" });
         }
     };
 };

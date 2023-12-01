@@ -7,12 +7,12 @@ const dynamicValidation = (req, res, next) => {
             const schema = validationConfig[path];
             const toValidate = req.body;
             if (!Object.keys(toValidate).length) {
-                next(CreateError(411, 'got an empty object'));
+                next(CreateError(411, 'got an empty object in body'));
                 return;
             }
             const { value, error } = schema.validate(toValidate);
             if (error) {
-                next(CreateError(406, 'not acceptable'));
+                next(CreateError(406, 'object in body is not acceptable'));
                 return;
             }
         }

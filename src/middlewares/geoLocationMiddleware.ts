@@ -12,7 +12,7 @@ const getGeoLocation = async (req:Request, res:Response, next:NextFunction) => {
       next();
     }
     else{
-      next(CreateError(401, 'not authorized'))
+      next(CreateError(401, 'geoloaction not authorized'))
     }
   }
   catch(err){

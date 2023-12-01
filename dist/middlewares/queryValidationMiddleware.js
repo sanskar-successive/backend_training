@@ -9,7 +9,7 @@ const queryValidation = (req, res, next) => {
         }
         const queryToCheck = query.query1;
         if (isNaN(queryToCheck)) {
-            next(CreateError(406, 'not a numeric value'));
+            next(CreateError(406, 'query not a numeric value'));
         }
         else {
             next();

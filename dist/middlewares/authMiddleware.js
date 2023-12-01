@@ -8,7 +8,7 @@ const authenticateUser = (req, res, next) => {
         }
         else {
             const decodedUser = jwt.verify(token, "123");
-            req.body.user = decodedUser;
+            req.user = decodedUser;
             next();
         }
     }

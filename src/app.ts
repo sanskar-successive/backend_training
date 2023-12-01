@@ -4,6 +4,7 @@ import { errorHandler, logEvents } from "./middlewares/index.js";
 
 const app = express();
 const PORT = 5000;
+
 app.use(express.json());
 app.use(logEvents);
 app.use("/api/users", userRoutes);
