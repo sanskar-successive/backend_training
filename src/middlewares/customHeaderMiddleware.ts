@@ -1,7 +1,7 @@
 import CreateError from 'http-errors';
 import { NextFunction, Request, Response } from "express";
 
-const customHeader = (custom_header:any) => {
+const customHeader = (custom_header:object) => {
 
   return (req:Request, res:Response, next:NextFunction) => {
     try {
