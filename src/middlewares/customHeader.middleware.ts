@@ -7,10 +7,11 @@ class CustomHeaderMiddleware {
   constructor(custom_header: object) {
     this.custom_header = custom_header;
   }
-  public customHeader(req: Request, res: Response, next: NextFunction): void {
+  public setCustomHeader = (req: Request, res: Response, next: NextFunction): void =>{
     try {
       if (!Object.keys(this.custom_header).length) {
         next(CreateError(411, "header is not provided"));
+        console.log("try ke andar hu")
         next();
       } else {
         res.set(this.custom_header);

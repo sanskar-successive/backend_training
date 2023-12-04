@@ -1,33 +1,34 @@
 import { Router } from "express";
 import UserController from "../controllers/user.controller.js";
 import authMiddleware from "../middlewares/auth.middleware.js";
-import requestLimiterMiddleware from "../middlewares/requestLimiter.middleware.js";
-import CustomHeaderMiddleware from "../middlewares/customHeader.middleware.js";
 import validationMiddleware from "../middlewares/validation.middleware.js";
 import queryValidationMiddleware from "../middlewares/queryValidation.middleware.js";
+import RequestLimiterMiddleware from "../middlewares/requestLimiter.middleware.js";
+import CustomHeaderMiddleware from "../middlewares/customHeader.middleware.js";
 
 class UserRoutes {
   private router: Router = Router();
   private controller: UserController = new UserController();
+  private requestLimiterMiddleware = new RequestLimiterMiddleware();
 
   constructor() {
     this.initializeMiddlewares();
     this.initializeRoutes();
   }
 
-  private initializeMiddlewares(): void {
-    // this.router.use(requestLimiterMiddleware);
+  private initializeMiddlewares = () : void => {
+    this.router.use(this.requestLimiterMiddleware.requestLimiter);
     this.router.use(authMiddleware);
   }
 
-  private initializeRoutes(): void {
+  private initializeRoutes = (): void  =>{
     this.router.get(
       "/show",
-      queryValidationMiddleware,
       new CustomHeaderMiddleware({
         "X-custom_header_get_1": "custom_header_value_1",
         "X-custom_header_get_2": "custom_header_value_2",
-      }).customHeader,
+      }).setCustomHeader,
+      queryValidationMiddleware,
       this.controller.getAllUsers.bind(this.controller)
     );
 
@@ -37,12 +38,12 @@ class UserRoutes {
       new CustomHeaderMiddleware({
         "X-custom_header_get_1": "custom_header_value_1",
         "X-custom_header_get_2": "custom_header_value_2",
-      }).customHeader,
+      }).setCustomHeader,
       this.controller.createUser.bind(this.controller)
     );
   }
 
-  public getRouter(): Router {
+  public getRouter = (): Router => {
     return this.router;
   }
 }

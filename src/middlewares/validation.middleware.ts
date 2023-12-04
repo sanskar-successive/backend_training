@@ -4,7 +4,7 @@ import CreateError from 'http-errors';
 import { NextFunction, Request, Response } from "express";
 
 class ValidationMiddleware{
-    public validateUser(req:Request, res:Response, next:NextFunction) : void{
+    public validateUser = (req:Request, res:Response, next:NextFunction) : void =>{
         try {
           const user = req.body;
           if(!Object.keys(user).length){

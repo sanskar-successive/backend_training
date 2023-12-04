@@ -8,15 +8,16 @@ class RequestLimiterMiddleware {
   private reqLimit : number;
   private timeLimit :number;
 
-  constructor(reqLimit:number, timeLimit:number) {
+  constructor() {
     this.initReqTime = 0;
     this.currReqTime = 0;
     this.countReq = 0;
-    this.reqLimit = reqLimit;
-    this.timeLimit = timeLimit;
+    this.reqLimit = 5;
+    this.timeLimit = 5;
   }
 
-  public requestLimiter(req: Request, res: Response, next: NextFunction): void {
+  public requestLimiter = (req: Request, res: Response, next: NextFunction): void =>{
+
     try {
       if (!this.countReq) {
         this.initReqTime = new Date().getSeconds();
@@ -43,4 +44,4 @@ class RequestLimiterMiddleware {
   }
 }
 
-export default new RequestLimiterMiddleware(5,5).requestLimiter;
+export default RequestLimiterMiddleware;

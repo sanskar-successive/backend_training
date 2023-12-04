@@ -2,9 +2,15 @@ import jwt from "jsonwebtoken";
 import CreateError from 'http-errors';
 import { NextFunction, Request, Response } from "express";
 
+declare module 'express' {
+  interface Request {
+    user?: any;
+  }
+}
+
 class AuthMiddleware{
 
-    public authenticateUser(req:Request, res:Response, next:NextFunction):void{
+    public authenticateUser = (req:Request, res:Response, next:NextFunction):void => {
         try {
           const token = req.headers.authorization;
           if (!token) {

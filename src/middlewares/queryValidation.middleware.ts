@@ -5,12 +5,12 @@ class QueryValidationMiddleware{
 
 public queryValidation = (req:Request, res:Response, next:NextFunction):void => {
   try{
-    const query:any = req.query;
-    if(!Object.keys(query).length){
+    if(!Object.keys(req.query).length){
       next();
       return;
     }
-    if (isNaN(query.query1)) {
+    const {query1} = req.query;
+    if (isNaN(Number(query1))) {
       next(CreateError(406, 'not a numeric value'))
     } else {
       next();

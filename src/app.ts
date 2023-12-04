@@ -3,6 +3,7 @@ import UserRoutes from "./routes/user.routes.js";
 import loggerMiddleware from "./middlewares/logger.middleware.js";
 import geoLocationMiddleware from "./middlewares/geoLocation.middleware.js";
 import errorMiddleware from "./middlewares/error.middleware.js";
+import AuthRoutes from "./routes/auth.routes.js";
 class App {
   private app : Express;
 
@@ -12,22 +13,24 @@ class App {
     this.setRoutes();
     this.setErrorHandler();
   }
-  private config(): void {
+  private config = (): void => {
     this.app.use(express.json());
     this.app.use(loggerMiddleware);
     this.app.use(geoLocationMiddleware);
   }
 
-  private setRoutes():void{
+  private setRoutes = ():void=>{
     const userRoutes = new UserRoutes();
     this.app.use('/api/users', userRoutes.getRouter());
+    const authRoutes = new AuthRoutes();
+    this.app.use('/api/auth', authRoutes.getRouter());
   }
 
-  private setErrorHandler():void{
+  private setErrorHandler = ():void=>{
     this.app.use(errorMiddleware);
   }
 
-  public start(port:number):void{
+  public start = (port:number):void=>{
     this.app.listen(port, ()=>{
       console.log(`server is running on port ${port}`);
     });

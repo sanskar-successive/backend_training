@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import CreateError from "http-errors";
 
 class ParamValidationMiddleware {
-  public paramValidation(req: Request, res: Response, next: NextFunction): void {
+  public paramValidation = (req: Request, res: Response, next: NextFunction): void =>{
     try {
       const { id } = req.params;
       if (isNaN(Number(id))) {
