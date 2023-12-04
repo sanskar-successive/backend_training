@@ -5,6 +5,7 @@ import geoLocationMiddleware from "./middlewares/geoLocation.middleware.js";
 import errorMiddleware from "./middlewares/error.middleware.js";
 import AuthRoutes from "./routes/auth.routes.js";
 import HealthCheckRoutes from "./routes/healthCheck.routes.js";
+import notFoundMiddlware from "./middlewares/notFound.middlware.js";
 class App {
     constructor() {
         this.config = () => {
@@ -20,6 +21,9 @@ class App {
             const healthCheckRoutes = new HealthCheckRoutes();
             this.app.use('/api', healthCheckRoutes.getRouter());
         };
+        this.setNotFound = () => {
+            this.app.use(notFoundMiddlware);
+        };
         this.setErrorHandler = () => {
             this.app.use(errorMiddleware);
         };
@@ -31,6 +35,7 @@ class App {
         this.app = express();
         this.config();
         this.setRoutes();
+        this.setNotFound();
         this.setErrorHandler();
     }
 }
