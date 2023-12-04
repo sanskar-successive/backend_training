@@ -61,3 +61,110 @@ undefined and null are types that refer to the JavaScript primitives undefined a
 - var Identifier:Data-type = value;
 - var Identifier: Data-type;
 - var Identifier = value;
+
+
+## Clases In Typescript:
+
+Classes provides a blueprint for creating objects with properties and methods, enabling the organization of code into reusable and structured components.
+
+### Class Declaration
+
+A class in TypeScript is declared using the class keyword, followed by the class name.
+typescriptCopy code
+class ClassName {
+// Class members go here
+}
+
+### Constructor
+
+The constructor is a special method used for initializing instances of the class. It is defined using the constructor keyword.
+typescriptCopy code
+class MyClass {
+constructor(parameter1: type1, parameter2: type2) {
+// logic here
+}
+}
+
+### Properties"
+
+Class properties define the characteristics or attributes of instances. They are declared within the class body.
+typescriptCopy code
+class Person {
+name: string;
+age: number;
+}
+
+### Inheritance:
+
+Inheritance allows a class to inherit properties and methods from another class, establishing a hierarchical relationship.
+typescriptCopy code
+class Animal {
+sound: string;
+
+makeSound(): void {
+console.log(this.sound);
+}
+}
+
+class Dog extends Animal {
+constructor() {
+super();
+this.sound = 'Woof';
+}
+}
+
+## TypeScript Interfaces
+
+Interfaces in TypeScript define a contract for the shape of an object, specifying the properties and methods it must have.
+Extending an interface means you are creating a new interface with the same properties as the original, plus something new.
+
+### Interface Declaration:
+
+An interface is declared using the interface keyword, followed by the interface name.
+interface MyInterface {
+// Interface members go here
+}
+
+### Properties:
+
+Interface properties define the expected attributes of an object.
+typescriptCopy code
+interface Person {
+name: string;
+age: number;
+}
+
+### Readonly Properties:
+
+Properties can be marked as readonly, indicating that once assigned a value, they cannot be changed.
+typescriptCopy code
+interface Point {
+readonly x: number;
+readonly y: number;
+}
+
+### Extending Interfaces:
+
+Interfaces can extend other interfaces to inherit their members.
+typescriptCopy code
+interface Shape {
+color: string;
+}
+
+interface Square extends Shape {
+sideLength: number;
+}
+
+### Implementing Interfaces:
+
+Classes in TypeScript can implement interfaces, ensuring they provide the required properties and methods.
+typescriptCopy code
+interface Animal {
+makeSound(): void;
+}
+
+class Dog implements Animal {
+makeSound() {
+console.log('Woof');
+}
+}
