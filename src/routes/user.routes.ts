@@ -29,7 +29,7 @@ class UserRoutes {
         "X-custom_header_get_2": "custom_header_value_2",
       }).setCustomHeader,
       queryValidationMiddleware,
-      this.controller.getAllUsers.bind(this.controller)
+      this.controller.getAllUsers
     );
 
     this.router.post(
@@ -39,7 +39,7 @@ class UserRoutes {
         "X-custom_header_get_1": "custom_header_value_1",
         "X-custom_header_get_2": "custom_header_value_2",
       }).setCustomHeader,
-      this.controller.createUser.bind(this.controller)
+      this.controller.createUser
     );
   }
 
