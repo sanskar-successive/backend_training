@@ -6,20 +6,22 @@ import errorMiddleware from "./middlewares/error.middleware.js";
 import AuthRoutes from "./routes/auth.routes.js";
 import HealthCheckRoutes from "./routes/healthCheck.routes.js";
 import notFoundMiddlware from "./middlewares/notFound.middlware.js";
+import DBConnection from "./db/dbConnection.js";
 class App {
     constructor() {
         this.config = () => {
             this.app.use(express.json());
+            this.dbConnection.connectDB();
             this.app.use(loggerMiddleware);
             this.app.use(geoLocationMiddleware);
         };
         this.setRoutes = () => {
             const userRoutes = new UserRoutes();
-            this.app.use('/api/users', userRoutes.getRouter());
+            this.app.use("/api/users", userRoutes.getRouter());
             const authRoutes = new AuthRoutes();
-            this.app.use('/api/auth', authRoutes.getRouter());
+            this.app.use("/api/auth", authRoutes.getRouter());
             const healthCheckRoutes = new HealthCheckRoutes();
-            this.app.use('/api', healthCheckRoutes.getRouter());
+            this.app.use("/api", healthCheckRoutes.getRouter());
         };
         this.setNotFound = () => {
             this.app.use(notFoundMiddlware);
@@ -32,6 +34,7 @@ class App {
                 console.log(`server is running on port ${port}`);
             });
         };
+        this.dbConnection = new DBConnection();
         this.app = express();
         this.config();
         this.setRoutes();
@@ -40,20 +43,3 @@ class App {
     }
 }
 export default App;
-// import express from "express";
-// import { errorHandler, logEvents } from "./middlewares/index.js";
-// import userRoutes from "./routes/userRoutes.js";
-// import authRoutes from "./routes/authRoutes.js";
-// const app = express();
-// const PORT = 5000;
-// app.use(express.json());
-// app.use(logEvents);
-// app.use("/api/users", userRoutes);
-// app.use('/api/auth', authRoutes);
-// app.use((req,res,next)=>{
-//   res.json("page not found")
-// })
-// app.use(errorHandler);
-// app.listen(PORT, () => {
-//   console.log(`server running on port ${PORT}`);
-// });
