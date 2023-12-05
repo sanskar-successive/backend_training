@@ -1,10 +1,10 @@
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import CreateError from 'http-errors';
 import { NextFunction, Request, Response } from "express";
 
 declare module 'express' {
   interface Request {
-    user?: any;
+    user?: JwtPayload;
   }
 }
 
@@ -16,8 +16,10 @@ class AuthMiddleware{
           if (!token) {
             next(CreateError(403, "token not provided"));
           } else {
-            const decodedUser = jwt.verify(token, "123");
-            req.user = decodedUser;
+            jwt.verify(token, "123", (err)=>{
+              next(CreateError(401,`invalid token ${err?.message}`))
+            });
+            
             next();
           }
         } catch (err) {

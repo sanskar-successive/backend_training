@@ -1,4 +1,3 @@
-import joi from "joi";
 import { userSchema } from "../utils/schema/userSchema.js";
 import CreateError from 'http-errors';
 import { NextFunction, Request, Response } from "express";
@@ -11,7 +10,7 @@ class ValidationMiddleware{
             next(CreateError(411, 'user is empty'))
             return;
           }
-          const { value, error } = userSchema.validate(user, {abortEarly : false});
+          const { error } = userSchema.validate(user, {abortEarly : false});
           if (error) {
             res.status(406).json(error)
           }

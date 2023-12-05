@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import playingCountriesModel from "./model/seedSchema.js";
 
+const a = 10;
 class DBConnection {
   private mongoUri: string = "mongodb://127.0.0.1:27017/testdb";
 

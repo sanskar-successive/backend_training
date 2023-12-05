@@ -1,8 +1,9 @@
 import { ObjectSchema } from "joi";
 import loginSchema from "./schema/loginSchema.js";
 import registerSchema from "./schema/registerSchema.js";
+import joi from 'joi'
 interface validateSchema {
-  [key: string]: ObjectSchema<any>;
+  [key: string]: ObjectSchema<joi.AnySchema>;
 }
 const validationConfig: validateSchema = {
   "login POST": loginSchema,
