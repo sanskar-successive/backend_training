@@ -12,13 +12,11 @@ class AuthMiddleware{
 
     public authenticateUser = (req:Request, res:Response, next:NextFunction):void => {
         try {
-          const token = req.headers.authorization;
+          const token = req.cookies.authToken;
           if (!token) {
             next(CreateError(403, "token not provided"));
           } else {
-            jwt.verify(token, "123", (err)=>{
-              next(CreateError(401,`invalid token ${err?.message}`))
-            });
+            jwt.verify(token, "123");
             
             next();
           }
