@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import CustomError from "../utils/errorClass.js";
 import CreateError from 'http-errors';
 
 const authenticateUser = (req, res, next) => {

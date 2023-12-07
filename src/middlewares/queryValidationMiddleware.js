@@ -1,4 +1,3 @@
-import CustomError from "../utils/errorClass.js";
 import CreateError from 'http-errors';
 
 const queryValidation = (req, res, next) => {

@@ -1,4 +1,3 @@
-import CustomError from "../utils/errorClass.js";
 import axios from 'axios'
 import CreateError from 'http-errors';
 
