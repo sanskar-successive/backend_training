@@ -1,8 +1,6 @@
 import jwt from "jsonwebtoken";
 import CreateError from 'http-errors';
 import { NextFunction, Request, Response } from "express";
-
-
 declare module 'express' {
   interface Request {
     user?: any;
