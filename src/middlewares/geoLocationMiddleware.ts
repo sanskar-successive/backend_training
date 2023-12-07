@@ -1,7 +1,8 @@
 import axios from 'axios'
+import { NextFunction, Request, Response } from "express";
 import CreateError from 'http-errors';
 
-const getGeoLocation = async (req, res, next) => {
+const getGeoLocation = async (req:Request, res:Response, next:NextFunction) => {
   try{
     const key = "29f6aafef213de059431ac964c670b6d";
     const ip = "103.83.71.179";

@@ -1,8 +1,9 @@
+import { NextFunction, Request, Response } from "express";
 import CreateError from 'http-errors';
 
-const queryValidation = (req, res, next) => {
+const queryValidation = (req:Request, res:Response, next:NextFunction) => {
   try{
-    const query = req.query;
+    const query:any = req.query;
     if(!Object.keys(query).length){
       next();
       return;

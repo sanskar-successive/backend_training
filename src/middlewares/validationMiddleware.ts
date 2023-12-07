@@ -1,14 +1,15 @@
 import { userSchema } from "../utils/schema/userSchema.js";
 import CreateError from 'http-errors';
+import { NextFunction, Request, Response } from "express";
 
-const validateUser = (req, res, next) => {
+const validateUser = (req:Request, res:Response, next:NextFunction) => {
   try {
     const user = req.body;
     if(!Object.keys(user).length){
       next(CreateError(411, 'user is empty'))
       return;
     }
-    const { value, error } = userSchema.validate(user, {abortEarly : false});
+    const { error } = userSchema.validate(user, {abortEarly : false});
     if (error) {
       res.status(406).json(error)
     }

@@ -1,4 +1,6 @@
-const asyncHandler = async (req, res) => {
+import { Request, Response } from "express";
+
+const asyncHandler = async (req:Request, res:Response) => {
   const promise = new Promise((resolve, reject) => {
     reject("Promise resolved");
     resolve("Promise rejected");

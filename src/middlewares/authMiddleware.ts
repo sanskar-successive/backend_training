@@ -1,7 +1,13 @@
 import jwt from "jsonwebtoken";
 import CreateError from 'http-errors';
+import { NextFunction, Request, Response } from "express";
+declare module 'express' {
+  interface Request {
+    user?: any;
+  }
+}
 
-const authenticateUser = (req, res, next) => {
+const authenticateUser = (req:Request, res:Response, next:NextFunction) => {
   try {
     const token = req.headers.authorization;
     if (!token) {

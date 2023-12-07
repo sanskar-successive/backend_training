@@ -11,7 +11,6 @@ import {
   validateUser,
   queryValidation,
   getGeoLocation,
-  dynamicValidation,
   paramValidation,
 } from "../middlewares/index.js";
 import asyncHandler from "../controllers/asyncController.js";
