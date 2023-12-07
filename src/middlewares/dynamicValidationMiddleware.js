@@ -1,6 +1,5 @@
-import joi from "joi";
-import CustomError from "../utils/errorClass.js";
 import validationConfig from "../utils/validationConfig.js";
+import CreateError from 'http-errors';
 
 const dynamicValidation = (req, res, next) => {
   try {
@@ -19,7 +18,7 @@ const dynamicValidation = (req, res, next) => {
     }
     next();
   } catch (err) {
-    next(new CustomError("internal server error", 500));
+    next(CreateError(500, 'internal server error'))
   }
 };
 export default dynamicValidation;

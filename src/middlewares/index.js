@@ -7,6 +7,7 @@ import validateUser from "./validationMiddleware.js";
 import queryValidation from "./queryValidationMiddleware.js";
 import getGeoLocation from "./geoLocationMiddleware.js";
 import dynamicValidation from "./dynamicValidationMiddleware.js";
+import paramValidation from "./paramValidationMiddleware.js";
 
 export {
   authenticateUser,
@@ -17,5 +18,6 @@ export {
   validateUser,
   queryValidation,
   getGeoLocation,
-  dynamicValidation
+  dynamicValidation,
+  paramValidation
 };
