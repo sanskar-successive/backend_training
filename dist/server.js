@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,18 +8,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import express from "express";
-import userRoutes from "./routes/user.routes.js";
-import productRoutes from './routes/product.routes.js';
-import DBConnection from "./config/dbConnection.js";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const dbConnection_1 = __importDefault(require("./lib/config/dbConnection"));
+const router_1 = __importDefault(require("./router"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 class Server {
     constructor() {
         this.config = () => __awaiter(this, void 0, void 0, function* () {
-            this.app.use(express.json());
+            this.app.use(express_1.default.json());
+            this.app.use((0, cookie_parser_1.default)());
         });
         this.setRoutes = () => {
-            this.app.use("/api/users", userRoutes);
-            this.app.use("/api/products", productRoutes);
+            this.app.use(router_1.default);
         };
         this.start = (PORT) => __awaiter(this, void 0, void 0, function* () {
             yield this.dbConnection.connectDB();
@@ -26,13 +31,13 @@ class Server {
                 console.log(`server running on PORT ${PORT}`);
             });
         });
-        this.dbConnection = new DBConnection();
-        this.app = express();
+        this.dbConnection = new dbConnection_1.default();
+        this.app = (0, express_1.default)();
         this.config();
         this.setRoutes();
     }
 }
-export default Server;
+exports.default = Server;
 // import express, { Express } from "express";
 // import UserRoutes from "./routes/user.routes.js";
 // import loggerMiddleware from "./middlewares/logger.middleware.js";

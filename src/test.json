@@ -1,0 +1,80 @@
+[
+  {
+    "userId": "u1",
+    "name": "un1",
+    "phone": 123,
+    "email": "ue1",
+    "password": "ups1",
+    "verified": 1,
+    "address": "ua1"
+  },
+
+  {
+    "userId": "u2",
+    "name": "un2",
+    "phone": 123,
+    "email": "ue2",
+    "password": "ups2",
+    "verified": 1,
+    "address": "ua2"
+  },
+  {
+    "userId": "u3",
+    "name": "un3",
+    "phone": 123,
+    "email": "ue3",
+    "password": "ups3",
+    "verified": 1,
+    "address": "ua3"
+  },
+  {
+    "propertyId" : "p1",
+    "title" : "pt1",
+    "description" : "pd1",
+    "owner" : {
+      "userId": "u3",
+      "name": "un3",
+      "phone": 123,
+      "email": "ue3",
+      "password": "ups3",
+      "verified": 1,
+      "address": "ua3"
+    },
+    "location" : {
+      "address" : "pa1"
+    },
+    "details" : {
+      "type" : "apartment",
+      "area" : 1000,
+      "bedroom" : 4,
+      "balcony" : 2,
+      "floor" : 5
+    },
+    "verified" : 1
+  },
+  {
+    "propertyId" : "p2",
+    "title" : "pt2",
+    "description" : "pd2",
+    "owner" : {
+      "userId": "u3",
+      "name": "un3",
+      "phone": 123,
+      "email": "ue3",
+      "password": "ups3",
+      "verified": 1,
+      "address": "ua3"
+    },
+    "location" : {
+      "address" : "pa2"
+    },
+    "details" : {
+      "type" : "apartment",
+      "area" : 1000,
+      "bedroom" : 4,
+      "balcony" : 2,
+      "floor" : 5
+    },
+    "verified" : 1
+  }
+]

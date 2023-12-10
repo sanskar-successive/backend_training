@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const checkAlphabets = (input) => {
     for (const char of input) {
         if (!(char >= "a" && char <= "z") &&
@@ -7,4 +9,4 @@ const checkAlphabets = (input) => {
     }
     return true;
 };
-export default checkAlphabets;
+exports.default = checkAlphabets;

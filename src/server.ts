@@ -1,7 +1,7 @@
-import express, { Application, Express } from "express";
-import userRoutes from "./routes/user.routes.js";
-import productRoutes from './routes/product.routes.js'
-import DBConnection from "./config/dbConnection.js";
+import express, { Application} from "express";
+import DBConnection from "./lib/config/dbConnection";
+import router from "./router";
+import cookieParser from 'cookie-parser';
 
 class Server {
   private app: Application;
@@ -15,11 +15,11 @@ class Server {
   }
   private config = async (): Promise<void> => {
     this.app.use(express.json());
+    this.app.use(cookieParser());
   };
 
   private setRoutes = (): void => {
-    this.app.use("/api/users", userRoutes);
-    this.app.use("/api/products", productRoutes);
+    this.app.use(router);
 
   };
 
@@ -32,6 +32,36 @@ class Server {
 }
 
 export default Server;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // import express, { Express } from "express";
 // import UserRoutes from "./routes/user.routes.js";
