@@ -5,7 +5,6 @@ import validationMiddleware from "../middlewares/validation.middleware.js";
 import queryValidationMiddleware from "../middlewares/queryValidation.middleware.js";
 import RequestLimiterMiddleware from "../middlewares/requestLimiter.middleware.js";
 import CustomHeaderMiddleware from "../middlewares/customHeader.middleware.js";
-
 class UserRoutes {
   private router: Router = Router();
   private controller: UserController = new UserController();
@@ -16,12 +15,12 @@ class UserRoutes {
     this.initializeRoutes();
   }
 
-  private initializeMiddlewares = () : void => {
+  private initializeMiddlewares = (): void => {
     this.router.use(this.requestLimiterMiddleware.requestLimiter);
     this.router.use(authMiddleware);
-  }
+  };
 
-  private initializeRoutes = (): void  =>{
+  private initializeRoutes = (): void => {
     this.router.get(
       "/show",
       new CustomHeaderMiddleware({
@@ -41,11 +40,11 @@ class UserRoutes {
       }).setCustomHeader,
       this.controller.createUser
     );
-  }
+  };
 
   public getRouter = (): Router => {
     return this.router;
-  }
+  };
 }
 
 export default UserRoutes;

@@ -1,12 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import CreateError from "http-errors";
-
 class RequestLimiterMiddleware {
   private initReqTime: number;
   private currReqTime: number;
   private countReq: number;
-  private reqLimit : number;
-  private timeLimit :number;
+  private reqLimit: number;
+  private timeLimit: number;
 
   constructor() {
     this.initReqTime = 0;
@@ -16,8 +15,11 @@ class RequestLimiterMiddleware {
     this.timeLimit = 5;
   }
 
-  public requestLimiter = (req: Request, res: Response, next: NextFunction): void =>{
-
+  public requestLimiter = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): void => {
     try {
       if (!this.countReq) {
         this.initReqTime = new Date().getSeconds();
@@ -39,9 +41,11 @@ class RequestLimiterMiddleware {
         res.status(429).json({ message: "Too many requests" });
       }
     } catch (err) {
-      next(CreateError(500, "internal server error(request limiter middleware)"));
+      next(
+        CreateError(500, "internal server error(request limiter middleware)")
+      );
     }
-  }
+  };
 }
 
 export default RequestLimiterMiddleware;
