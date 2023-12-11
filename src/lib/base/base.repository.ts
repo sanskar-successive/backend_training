@@ -1,6 +1,6 @@
 import { Model, ObjectId, UpdateQuery } from "mongoose";
 
-class BaseRepository<T>{
+class BaseRepository<T extends Document>{
     
     private model : Model<T>;
 
@@ -16,10 +16,14 @@ class BaseRepository<T>{
         return await this.model.findById(id);
     }
 
-    public createNew = async (field : T) : Promise<T> => {
-        const data = await this.model.create(field);
+    public createNew = async (entity : T) : Promise<T> => {
+        const data = new this.model(entity);
+        // const data = await this.model.create(field);
+
+        const savedData = data.save();
         console.log("repo", data);
-        return data;
+        // return data;
+        return savedData;
     }
 
     public update = async (id : string | ObjectId, newData : UpdateQuery<T>) : Promise<void> => {
