@@ -1,20 +1,49 @@
-import express from "express";
+import express, { Express } from "express";
+import UserRoutes from "./routes/user.routes.js";
+import loggerMiddleware from "./middlewares/logger.middleware.js";
+import geoLocationMiddleware from "./middlewares/geoLocation.middleware.js";
+import errorMiddleware from "./middlewares/error.middleware.js";
+import AuthRoutes from "./routes/auth.routes.js";
+import HealthCheckRoutes from "./routes/healthCheck.routes.js";
+import notFoundMiddlware from "./middlewares/notFound.middlware.js";
+class App {
+  private app: Express;
 
-import { errorHandler, logEvents } from "./middlewares/index.js";
-import userRoutes from "./routes/userRoutes.js";
-import authRoutes from "./routes/authRoutes.js";
+  constructor() {
+    this.app = express();
+    this.config();
+    this.setRoutes();
+    this.setNotFound();
+    this.setErrorHandler();
+  }
+  private config = (): void => {
+    this.app.use(express.json());
+    this.app.use(loggerMiddleware);
+    this.app.use(geoLocationMiddleware);
+  };
 
-const app = express();
-const PORT = 5000;
-app.use(express.json());
-app.use(logEvents);
-app.use("/api/users", userRoutes);
-app.use('/api/auth', authRoutes);
-app.use((req,res,next)=>{
-  res.json("page not found")
-})
-app.use(errorHandler);
+  private setRoutes = (): void => {
+    const userRoutes = new UserRoutes();
+    this.app.use("/api/users", userRoutes.getRouter());
+    const authRoutes = new AuthRoutes();
+    this.app.use("/api/auth", authRoutes.getRouter());
+    const healthCheckRoutes = new HealthCheckRoutes();
+    this.app.use("/api", healthCheckRoutes.getRouter());
+  };
 
-app.listen(PORT, () => {
-  console.log(`server running on port ${PORT}`);
-});
+  private setNotFound = (): void => {
+    this.app.use(notFoundMiddlware);
+  };
+
+  private setErrorHandler = (): void => {
+    this.app.use(errorMiddleware);
+  };
+
+  public start = (port: number): void => {
+    this.app.listen(port, () => {
+      console.log(`server is running on port ${port}`);
+    });
+  };
+}
+
+export default App;
