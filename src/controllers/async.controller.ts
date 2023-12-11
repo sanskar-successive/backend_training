@@ -1,10 +1,9 @@
 import { Request, Response } from "express";
-
 class AsyncController{
   public asyncHandler = async (req:Request, res:Response) => {
     const promise = new Promise((resolve, reject) => {
-      reject("Promise nhi nibha paya");
-      resolve("Promise pura kr diya");
+      reject("Promise rejected");
+      resolve("Promise resolved");
     });
     try {
       const response = await promise;
