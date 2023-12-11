@@ -6,10 +6,13 @@ import errorMiddleware from "./middlewares/error.middleware.js";
 import AuthRoutes from "./routes/auth.routes.js";
 import HealthCheckRoutes from "./routes/healthCheck.routes.js";
 import notFoundMiddlware from "./middlewares/notFound.middlware.js";
+import DBConnection from "./db/dbConnection.js";
 class App {
   private app: Express;
+  private dbConnection: DBConnection;
 
   constructor() {
+    this.dbConnection = new DBConnection();
     this.app = express();
     this.config();
     this.setRoutes();
@@ -18,6 +21,7 @@ class App {
   }
   private config = (): void => {
     this.app.use(express.json());
+    this.dbConnection.connectDB();
     this.app.use(loggerMiddleware);
     this.app.use(geoLocationMiddleware);
   };

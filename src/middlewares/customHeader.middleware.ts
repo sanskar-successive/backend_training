@@ -1,6 +1,5 @@
 import CreateError from "http-errors";
 import { NextFunction, Request, Response } from "express";
-
 class CustomHeaderMiddleware {
   private custom_header: object;
 

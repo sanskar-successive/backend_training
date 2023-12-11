@@ -1,30 +1,28 @@
-import jwt from "jsonwebtoken";
-import CreateError from "http-errors";
+import jwt, { JwtPayload } from "jsonwebtoken";
+import CreateError from 'http-errors';
 import { NextFunction, Request, Response } from "express";
 declare module "express" {
   interface Request {
-    user?: any;
+    user?: JwtPayload;
   }
 }
-class AuthMiddleware {
-  public authenticateUser = (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): void => {
-    try {
-      const token = req.headers.authorization;
-      if (!token) {
-        next(CreateError(403, "token not provided"));
-      } else {
-        const decodedUser = jwt.verify(token, "123");
-        req.user = decodedUser;
-        next();
-      }
-    } catch (err) {
-      next(CreateError(401, "invalid token"));
-    }
-  };
+class AuthMiddleware{
+
+    public authenticateUser = (req:Request, res:Response, next:NextFunction):void => {
+        try {
+          const token = req.headers.authorization;
+          if (!token) {
+            next(CreateError(403, "token not provided"));
+          } else {
+            jwt.verify(token, "123", (err)=>{
+              next(CreateError(401,`invalid token ${err?.message}`))
+            });
+            next();
+          }
+        } catch (err) {
+          next(CreateError(401,'invalid token'))
+        }
+      };
 }
 
 export default new AuthMiddleware().authenticateUser;
