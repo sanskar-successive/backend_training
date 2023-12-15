@@ -16,14 +16,24 @@ const express_1 = __importDefault(require("express"));
 const dbConnection_1 = __importDefault(require("./lib/config/dbConnection"));
 const router_1 = __importDefault(require("./router"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const error_middleware_1 = __importDefault(require("./lib/middlewares/error.middleware"));
+const notFound_middlware_1 = __importDefault(require("./lib/middlewares/notFound.middlware"));
+const logger_middleware_1 = __importDefault(require("./lib/middlewares/logger.middleware"));
 class Server {
     constructor() {
         this.config = () => __awaiter(this, void 0, void 0, function* () {
             this.app.use(express_1.default.json());
             this.app.use((0, cookie_parser_1.default)());
+            this.app.use(logger_middleware_1.default);
         });
         this.setRoutes = () => {
             this.app.use(router_1.default);
+        };
+        this.setNotFound = () => {
+            this.app.use(notFound_middlware_1.default);
+        };
+        this.setErrorHandler = () => {
+            this.app.use(error_middleware_1.default);
         };
         this.start = (PORT) => __awaiter(this, void 0, void 0, function* () {
             yield this.dbConnection.connectDB();
@@ -35,6 +45,8 @@ class Server {
         this.app = (0, express_1.default)();
         this.config();
         this.setRoutes();
+        this.setNotFound();
+        this.setErrorHandler();
     }
 }
 exports.default = Server;

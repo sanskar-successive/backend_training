@@ -1,7 +1,10 @@
-import express, { Application} from "express";
+import express, { Application } from "express";
 import DBConnection from "./lib/config/dbConnection";
 import router from "./router";
-import cookieParser from 'cookie-parser';
+import cookieParser from "cookie-parser";
+import errorMiddleware from "./lib/middlewares/error.middleware";
+import notFoundMiddlware from "./lib/middlewares/notFound.middlware";
+import loggerMiddleware from "./lib/middlewares/logger.middleware";
 
 class Server {
   private app: Application;
@@ -12,15 +15,24 @@ class Server {
     this.app = express();
     this.config();
     this.setRoutes();
+    this.setNotFound();
+        this.setErrorHandler();
   }
   private config = async (): Promise<void> => {
     this.app.use(express.json());
     this.app.use(cookieParser());
+    this.app.use(loggerMiddleware);
   };
 
   private setRoutes = (): void => {
     this.app.use(router);
+  };
+  private setNotFound = (): void => {
+    this.app.use(notFoundMiddlware);
+  };
 
+  private setErrorHandler = (): void => {
+    this.app.use(errorMiddleware);
   };
 
   public start = async (PORT: number) => {
@@ -32,36 +44,6 @@ class Server {
 }
 
 export default Server;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import express, { Express } from "express";
 // import UserRoutes from "./routes/user.routes.js";

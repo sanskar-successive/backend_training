@@ -9,13 +9,18 @@ class AuthMiddleware{
           const token : string = req.cookies['authToken'];
           console.log(token);
           if (!token) {
-            next(CreateError(403, "token not provided"));
+            next(CreateError(403, 'token not provided'));
+            // throw new Error();
           } else {
-            jwt.verify(token, "123",);
+            jwt.verify(token, "12",);
             next();
           }
-        } catch (err) {
-          next(CreateError(401,'invalid token'))
+        } catch (error) {
+          next(CreateError(401, 'invalid token'))
+          
+          // next(error)
+          // console.log(error);
+          // next(error);
         }
       };
 }

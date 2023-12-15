@@ -9,8 +9,8 @@ class DynamicValidationMiddleware {
     next: NextFunction
   ): void => {
     try {
-      const part = req.url.split("/");
-      const path = `${req.baseUrl}/${part[1]}`;
+
+      const path = req.url;
       const method = req.method;
       const key = `${path} ${method}`;
       console.log(key);

@@ -1,73 +1,124 @@
-import { Schema, model } from "mongoose";
-import IBook, { IAuthor, IReview } from "../../entities/IBook";
+import mongoose, { Schema } from "mongoose";
+import { IAuthor, IBook, IMoreDetails, IReview } from "../../entities/IBook";
 
-const reviewSchema: Schema<IReview> = new Schema({
-  customer: {
-    type: Schema.Types.ObjectId,
+
+
+
+
+
+const authorSchema: Schema<IAuthor> = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  about: {
+    type: String,
+    required: true,
+  },
+  rating: { type: Number },
+});
+
+
+
+
+
+
+
+const reviewSchema: Schema<IReview> = new mongoose.Schema({
+  user: {
+    type: String,
+    required: true,
+  },
+  book: {
+    type: String,
+    required: true,
+  },
+  rating: {
+    type: Number,
     required: true,
   },
   text: {
     type: String,
     required: true,
   },
-  rating: {
-    type: Number,
-    required: true,
-  },
+  image: { type: String },
+  helpful: { type: Boolean },
 });
 
-const authorSchema: Schema<IAuthor> = new Schema({
-  name: {
+
+
+
+
+
+const moreDetailsSchema: Schema<IMoreDetails> = new mongoose.Schema({
+  publishDetails: {
+    name: {
+      type: String,
+      required: true,
+    },
+    lastPublished: {
+      type: Date,
+      required: true,
+    },
+  },
+  seller: {
     type: String,
     required: true,
   },
-  rating: {
+  language: {
+    type: String,
+    enum: ["English", "Hindi"],
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  fileSize: {
     type: Number,
+    required: true,
+  },
+  length: {
+    type: Number,
+    required: true,
   },
 });
 
-const bookSchema: Schema<IBook> = new Schema({
+
+
+
+
+
+const bookSchema: Schema<IBook> = new mongoose.Schema({
   title: {
     type: String,
     required: true,
   },
-  author: {
-    type: authorSchema,
-    required: true,
-  },
-  genre: {
+  coverImage: { type: String },
+  category: {
     type: String,
-    enum: [
-      "Fiction",
-      "Non-Fiction",
-      "Sci-Fi",
-      "Mystery",
-      "Fantasy",
-      "Historical",
-      "Other",
-    ],
+    enum: ["Category1", "Category2", "Category3"],
     required: true,
-    default : "Fiction"
   },
-  publicationYear: {
+  author: authorSchema,
+  globalRating: {
     type: Number,
-  },
-  price: {
-    type: Number,
-    min: 0,
-  },
-  rating: {
-    type: Number,
-    min: 0,
-    max: 5,
+    required: true,
   },
   reviews: [reviewSchema],
-  availability: {
-    type: Boolean,
-    default: true,
+  price: {
+    type: Number,
+    required: true,
   },
-  tags: [{ type: String }],
+  moreDetails: moreDetailsSchema,
+  tags: [String],
+  rank: { type: Number },
+  categoryRank: { type: Number },
 });
 
-const Book = model<IBook>("Book", bookSchema);
+
+
+
+const Book = mongoose.model<IBook>("Book", bookSchema);
+
 export default Book;

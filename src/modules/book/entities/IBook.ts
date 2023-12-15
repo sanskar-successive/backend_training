@@ -1,40 +1,39 @@
-// interface IBook {
-//     title : string;
-//     author : string;
-//     price : number;
-// }
-
-import { Types } from "mongoose";
-
-export interface IReview {
-  customer: Types.ObjectId;
-  text: string;
-  rating: number;
+export interface IBook {
+    
+    bookId : string,
+    title : string,
+    coverImage ?: string,
+    category : Enumerator,
+    author : IAuthor,
+    globalRating : number;
+    reviews ?: IReview,
+    price : number,
+    moreDetails : IMoreDetails,
+    tags ?: string[]
+    rank ?: number,
+    categoryRank ?: number
 }
 
-export interface IAuthor {
-  name: string;
-  rating?: number;
+export interface IAuthor{
+    name : string,
+    about : string,
+    rating ?: number
 }
 
-interface IBook {
-  title: string;
-  author: IAuthor;
-  price: number;
-  genre:
-    | "Fiction"
-    | "Non-Fiction"
-    | "Sci-Fi"
-    | "Mystery"
-    | "Fantasy"
-    | "Historical"
-    | "Other";
-  publicationYear?: number;
-  rating?: number;
-  reviews?: IReview[];
-  availability?: boolean;
-  tags?: string[];
+export interface IReview{
+    user : string,
+    book : string,
+    rating : number,
+    text : string,
+    image ?: string,
+    helpful ?: string
 }
 
-export default IBook;
-
+export interface IMoreDetails{
+    publishDetails : {name : string, lastPublished : Date},
+    seller : string,
+    language : Enumerator,
+    description : string,
+    fileSize : number,
+    length : number,
+}

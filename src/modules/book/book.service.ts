@@ -1,39 +1,35 @@
-import { ObjectId } from "mongoose";
 import BookRepository from "./repositories/book.repository";
-import IBook from "./entities/IBook";
+import { IBook } from "./entities/IBook";
 
 class BookService {
+  private bookRepo: BookRepository;
 
-    private repo : BookRepository;
+  constructor() {
+    this.bookRepo = new BookRepository();
+  }
 
-    constructor(){
-        this.repo = new BookRepository();
-    }
+  public getAll = async (): Promise<IBook[] | null> => {
+    return await this.bookRepo.getAll();
+  };
 
-    public getAll = async () : Promise<IBook[] | null> =>{
-        return await this.repo.getAll();
-    }
+  public getById = async (bookId: string): Promise<IBook | null> => {
+    return await this.bookRepo.getById(bookId);
+  };
 
-    public getById = async (bookId : string | ObjectId) : Promise<IBook | null>=>{
-        return await this.repo.getById(bookId);
-    }
+  public createNew = async (book: IBook): Promise<IBook | null> => {
+    return await this.bookRepo.createNew(book);
+  };
 
-    public createNew = async (book : IBook) : Promise<IBook> => {
-        const createdBook = await this.repo.createNew(book);
-        console.log("service", createdBook);
-        return createdBook;
-    }
+  public update = async (
+    bookId: string,
+    updatedBook: IBook
+  ): Promise<IBook | null> => {
+    return await this.bookRepo.update(bookId, updatedBook);
+  };
 
-    public update = async (bookId : string | ObjectId, updatedBook : IBook) : Promise<void> => {
-
-        await this.repo.update(bookId, updatedBook);
-    }
-
-    public delete = async (bookId : string | ObjectId) : Promise<void> =>{
-        return await this.repo.delete(bookId);
-    }
-
-
+  public delete = async (bookId: string): Promise<IBook | null> => {
+    return await this.bookRepo.delete(bookId);
+  };
 }
 
 export default BookService;
