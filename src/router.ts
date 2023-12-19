@@ -4,8 +4,8 @@ import userRoutes from './modules/user/user.routes'
 
 const router = express.Router();
 
-router.use('/api/books', bookRoutes)
-router.use('/api/users', userRoutes);
+router.use('/api', bookRoutes)
+router.use('/api/auth', userRoutes);
 
 
 export default router;

@@ -1,39 +1,36 @@
 export interface IBook {
-    
-    bookId : string,
     title : string,
     coverImage ?: string,
-    category : Enumerator,
-    author : IAuthor,
-    globalRating : number;
-    reviews ?: IReview,
     price : number,
+    rating : number,
+    category : string[],
+    author : IAuthor,
     moreDetails : IMoreDetails,
-    tags ?: string[]
-    rank ?: number,
-    categoryRank ?: number
+    reviews ?: IReview[],
 }
 
 export interface IAuthor{
     name : string,
     about : string,
-    rating ?: number
 }
 
 export interface IReview{
-    user : string,
-    book : string,
-    rating : number,
+    userId : string,
+    bookId : string,
     text : string,
-    image ?: string,
-    helpful ?: string
+    rating : number,
+    positive ?: string
 }
 
 export interface IMoreDetails{
-    publishDetails : {name : string, lastPublished : Date},
     seller : string,
     language : Enumerator,
     description : string,
     fileSize : number,
-    length : number,
+    pages : number,
+    ISBN : string,
+    publisher : string,
+    firstPublished : Date,
+    verified : boolean,
+    edition : number,
 }

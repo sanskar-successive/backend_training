@@ -1,11 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { IAuthor, IBook, IMoreDetails, IReview } from "../../entities/IBook";
 
-
-
-
-
-
 const authorSchema: Schema<IAuthor> = new mongoose.Schema({
   name: {
     type: String,
@@ -15,7 +10,6 @@ const authorSchema: Schema<IAuthor> = new mongoose.Schema({
     type: String,
     required: true,
   },
-  rating: { type: Number },
 });
 
 
@@ -23,13 +17,12 @@ const authorSchema: Schema<IAuthor> = new mongoose.Schema({
 
 
 
-
 const reviewSchema: Schema<IReview> = new mongoose.Schema({
-  user: {
+  userId: {
     type: String,
     required: true,
   },
-  book: {
+  bookId: {
     type: String,
     required: true,
   },
@@ -41,9 +34,10 @@ const reviewSchema: Schema<IReview> = new mongoose.Schema({
     type: String,
     required: true,
   },
-  image: { type: String },
-  helpful: { type: Boolean },
-});
+  positive: { type: Boolean },
+}, {timestamps : true});
+
+
 
 
 
@@ -51,15 +45,13 @@ const reviewSchema: Schema<IReview> = new mongoose.Schema({
 
 
 const moreDetailsSchema: Schema<IMoreDetails> = new mongoose.Schema({
-  publishDetails: {
-    name: {
-      type: String,
-      required: true,
-    },
-    lastPublished: {
-      type: Date,
-      required: true,
-    },
+  publisher: {
+    type: String,
+    required: true,
+  },
+  firstPublished: {
+    type: Date,
+    required: true,
   },
   seller: {
     type: String,
@@ -67,7 +59,6 @@ const moreDetailsSchema: Schema<IMoreDetails> = new mongoose.Schema({
   },
   language: {
     type: String,
-    enum: ["English", "Hindi"],
     required: true,
   },
   description: {
@@ -78,11 +69,15 @@ const moreDetailsSchema: Schema<IMoreDetails> = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  length: {
+  pages: {
     type: Number,
     required: true,
   },
+  verified : {type : Boolean},
+  edition : {type : Number}
 });
+
+
 
 
 
@@ -96,12 +91,11 @@ const bookSchema: Schema<IBook> = new mongoose.Schema({
   },
   coverImage: { type: String },
   category: {
-    type: String,
-    enum: ["Category1", "Category2", "Category3"],
+    type: [String],
     required: true,
   },
   author: authorSchema,
-  globalRating: {
+  rating: {
     type: Number,
     required: true,
   },
@@ -111,13 +105,7 @@ const bookSchema: Schema<IBook> = new mongoose.Schema({
     required: true,
   },
   moreDetails: moreDetailsSchema,
-  tags: [String],
-  rank: { type: Number },
-  categoryRank: { type: Number },
-});
-
-
-
+},{timestamps : true});
 
 const Book = mongoose.model<IBook>("Book", bookSchema);
 

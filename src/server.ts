@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import errorMiddleware from "./lib/middlewares/error.middleware";
 import notFoundMiddlware from "./lib/middlewares/notFound.middlware";
 import loggerMiddleware from "./lib/middlewares/logger.middleware";
+import cors from 'cors'
 
 class Server {
   private app: Application;
@@ -19,6 +20,7 @@ class Server {
         this.setErrorHandler();
   }
   private config = async (): Promise<void> => {
+    this.app.use(cors());
     this.app.use(express.json());
     this.app.use(cookieParser());
     this.app.use(loggerMiddleware);

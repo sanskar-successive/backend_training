@@ -19,9 +19,11 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const error_middleware_1 = __importDefault(require("./lib/middlewares/error.middleware"));
 const notFound_middlware_1 = __importDefault(require("./lib/middlewares/notFound.middlware"));
 const logger_middleware_1 = __importDefault(require("./lib/middlewares/logger.middleware"));
+const cors_1 = __importDefault(require("cors"));
 class Server {
     constructor() {
         this.config = () => __awaiter(this, void 0, void 0, function* () {
+            this.app.use((0, cors_1.default)());
             this.app.use(express_1.default.json());
             this.app.use((0, cookie_parser_1.default)());
             this.app.use(logger_middleware_1.default);

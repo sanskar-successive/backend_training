@@ -14,8 +14,7 @@ class BookController {
       const books: IBook[] | null = await this.bookService.getAll();
       res.status(200).json(books);
     } catch (error) {
-      console.log(error);
-
+      res.status(404).json(error)
     }
   };
 
@@ -25,13 +24,13 @@ class BookController {
       const book: IBook | null = await this.bookService.getById(bookId);
       res.status(200).json(book);
     } catch (error) {
-      console.log(error);
-
+      res.status(404).json(error)
     }
   };
 
   public createNew = async (req: Request, res: Response): Promise<void> => {
     try {
+
       const createdBook: IBook | null = await this.bookService.createNew(
         req.body
       );
@@ -39,8 +38,7 @@ class BookController {
         .status(200)
         .json({ message: "book created successfully", createdBook });
     } catch (error) {
-      console.log(error);
-
+      res.status(404).json(error)
     }
   };
 
@@ -54,7 +52,7 @@ class BookController {
       );
       res.json({ message: "book updated successfully", updatedBook });
     } catch (error) {
-       console.log(error);
+      res.status(404).json(error);
     }
   };
 
@@ -64,7 +62,7 @@ class BookController {
       const deletedBook = await this.bookService.delete(bookId);
       res.json({ message: "book deleted successfully", deletedBook });
     } catch (error) {
-      console.log(error);
+      res.status(404).json(error)
     }
   };
 }
