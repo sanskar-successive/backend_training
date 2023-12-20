@@ -10,11 +10,8 @@ router.get('/get/:userId', userController.getUser);
 router.post('/create', userController.createNewUser);
 router.patch('/update/:userId', userController.updateUser);
 router.delete('/delete/:userId', userController.deleteUser);
-router.get('/products/:userId', userController.getAllProducts);
 
 export default router;
-
-
 
 
 

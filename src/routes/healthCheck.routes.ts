@@ -1,5 +1,4 @@
 import { Request, Response, Router } from "express";
-
 class HealthCheckRoutes {
   private router: Router = Router();
 
