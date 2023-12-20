@@ -2,7 +2,6 @@ import express, { Application } from "express";
 import DBConnection from "./lib/config/dbConnection";
 import router from "./router";
 import cookieParser from "cookie-parser";
-import errorMiddleware from "./lib/middlewares/error.middleware";
 import notFoundMiddlware from "./lib/middlewares/notFound.middlware";
 import loggerMiddleware from "./lib/middlewares/logger.middleware";
 import cors from 'cors'
