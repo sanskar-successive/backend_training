@@ -1,13 +1,11 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 import CreateError from 'http-errors';
 import { NextFunction, Request, Response } from "express";
-
-declare module 'express' {
+declare module "express" {
   interface Request {
     user?: JwtPayload;
   }
 }
-
 class AuthMiddleware{
 
     public authenticateUser = (req:Request, res:Response, next:NextFunction):void => {
