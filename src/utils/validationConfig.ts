@@ -7,7 +7,7 @@ interface validateSchema {
 }
 const validationConfig: validateSchema = {
   "login POST": loginSchema,
-  "register POST": registerSchema,
+  "create POST": registerSchema,
 };
 
 export default validationConfig;

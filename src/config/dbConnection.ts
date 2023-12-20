@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import playingCountriesModel from "./model/seedSchema.js";
+import playingCountriesModel from "../models/seed.model.js";
 
 class DBConnection {
   private mongoUri: string = "mongodb://127.0.0.1:27017/testdb";
@@ -16,7 +16,7 @@ class DBConnection {
 
   private seedDb = async () : Promise<void>=>{
     await playingCountriesModel.deleteMany({});
-    await playingCountriesModel.insertMany({country : "in"})
+    await playingCountriesModel.insertMany({countryName : "india"})
   }
 }
 
