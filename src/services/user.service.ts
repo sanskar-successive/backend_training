@@ -33,8 +33,6 @@ class UserService {
     public getUserByEmail = async (email : string) : Promise<IUser | null> =>{
         return await this.repo.findByEmail(email);
     }
-
-
 }
 
 export default UserService;

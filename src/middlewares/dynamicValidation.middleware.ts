@@ -11,7 +11,6 @@ class DynamicValidationMiddleware {
       const path = req.url;
       const method = req.method;
       const key = `${path.substring(1)} ${method}`;
-      console.log(key);
       if (Object.keys(validationConfig).includes(key)) {
         const schema = validationConfig[key];
         const toValidate = req.body;
@@ -23,9 +22,7 @@ class DynamicValidationMiddleware {
       }
       next();
     } catch (err) {
-      next(
-        CreateError(500, "internal server error(dynamic validation middleware)")
-      );
+      res.status(500).json({message : "internal server error in dynamic validation middleware"})
     }
   };
 }

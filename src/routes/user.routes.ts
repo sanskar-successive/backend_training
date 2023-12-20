@@ -1,8 +1,11 @@
 import express from 'express';
 import UserController from '../controllers/user.controller.js';
+import dynamicValidationMiddleware from '../middlewares/dynamicValidation.middleware.js';
 const router = express.Router();
 
 const userController = new UserController();
+
+router.use(dynamicValidationMiddleware);
 
 router.get('/get', userController.getAllUsers);
 router.get('/get/:userId', userController.getUser);
