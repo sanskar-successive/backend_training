@@ -1,5 +1,4 @@
 import validationConfig from "../utils/validationConfig.js";
-import CreateError from "http-errors";
 import { NextFunction, Request, Response } from "express";
 class DynamicValidationMiddleware {
   public dynamicValidation = (
