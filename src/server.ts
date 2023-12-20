@@ -17,7 +17,7 @@ class Server {
     this.config();
     this.setRoutes();
     this.setNotFound();
-        this.setErrorHandler();
+        // this.setErrorHandler();
   }
   private config = async (): Promise<void> => {
     this.app.use(cors());
@@ -33,9 +33,9 @@ class Server {
     this.app.use(notFoundMiddlware);
   };
 
-  private setErrorHandler = (): void => {
-    this.app.use(errorMiddleware);
-  };
+  // private setErrorHandler = (): void => {
+  //   this.app.use(errorMiddleware);
+  // };
 
   public start = async (PORT: number) => {
     await this.dbConnection.connectDB();

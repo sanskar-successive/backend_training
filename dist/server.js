@@ -16,7 +16,6 @@ const express_1 = __importDefault(require("express"));
 const dbConnection_1 = __importDefault(require("./lib/config/dbConnection"));
 const router_1 = __importDefault(require("./router"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
-const error_middleware_1 = __importDefault(require("./lib/middlewares/error.middleware"));
 const notFound_middlware_1 = __importDefault(require("./lib/middlewares/notFound.middlware"));
 const logger_middleware_1 = __importDefault(require("./lib/middlewares/logger.middleware"));
 const cors_1 = __importDefault(require("cors"));
@@ -34,9 +33,9 @@ class Server {
         this.setNotFound = () => {
             this.app.use(notFound_middlware_1.default);
         };
-        this.setErrorHandler = () => {
-            this.app.use(error_middleware_1.default);
-        };
+        // private setErrorHandler = (): void => {
+        //   this.app.use(errorMiddleware);
+        // };
         this.start = (PORT) => __awaiter(this, void 0, void 0, function* () {
             yield this.dbConnection.connectDB();
             this.app.listen(PORT, () => {
@@ -48,7 +47,7 @@ class Server {
         this.config();
         this.setRoutes();
         this.setNotFound();
-        this.setErrorHandler();
+        // this.setErrorHandler();
     }
 }
 exports.default = Server;

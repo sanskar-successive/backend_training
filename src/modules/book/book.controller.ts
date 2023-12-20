@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import BookService from "./book.service";
 import { IBook } from "./entities/IBook";
+import csvtojson from 'csvtojson'
 
 class BookController {
   private bookService: BookService;
@@ -65,5 +66,28 @@ class BookController {
       res.status(404).json(error)
     }
   };
+
+
+  public bulkUpload = async (req : Request, res : Response) : Promise<void> =>{
+
+    try {
+      const csvFile : Express.Multer.File | undefined = req.file;
+      // console.log(csvFile);
+      console.log(csvFile?.path);
+
+      if(csvFile){
+        const convertedJson = await csvtojson().fromFile(csvFile.path);
+        for(let i=0;i<5;i++){
+          console.log(convertedJson[i]);
+        }
+        res.status(200).send(convertedJson);
+      }
+      else{
+        res.status(404).json("no csv file selected")
+      }
+    } catch (error) {
+      res.status(404).json(error);
+    }
+  }
 }
 export default BookController;
