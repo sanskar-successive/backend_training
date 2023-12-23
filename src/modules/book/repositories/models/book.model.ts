@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { IAuthor, IBook, IMoreDetails, IReview } from "../../entities/IBook";
+import { IAuthor, IBook, IMoreDetails } from "../../entities/IBook";
 
 const authorSchema: Schema<IAuthor> = new mongoose.Schema({
   name: {
