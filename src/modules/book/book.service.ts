@@ -30,6 +30,10 @@ class BookService {
   public delete = async (bookId: string): Promise<IBook | null> => {
     return await this.bookRepo.delete(bookId);
   };
+
+  public bulkUpload = async (books: IBook[]): Promise<void> => {
+    await this.bookRepo.bulkUpload(books);
+  };
 }
 
 export default BookService;

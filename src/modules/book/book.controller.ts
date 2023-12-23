@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import BookService from "./book.service";
 import { IBook } from "./entities/IBook";
 import csvtojson from 'csvtojson'
+import Papa from 'papaparse';
+import fs from 'fs'
 
 class BookController {
   private bookService: BookService;
@@ -80,10 +82,40 @@ class BookController {
         for(let i=0;i<5;i++){
           console.log(convertedJson[i]);
         }
+
+        // await this.bookService.bulkUpload(convertedJson);
         res.status(200).send(convertedJson);
       }
       else{
         res.status(404).json("no csv file selected")
+      }
+    } catch (error) {
+      res.status(404).json(error);
+    }
+  }
+
+
+  public bulkBookUpload = async (req:Request, res:Response)=>{
+    try {
+
+      const csvFile : Express.Multer.File | undefined = req.file;
+      if(csvFile){
+        const readStream = fs.createReadStream(csvFile.path);
+        const parsedData: unknown[] = [];
+        Papa.parse(readStream,{
+          header : true,
+          dynamicTyping : true,
+          step : (result)=>{
+            console.log(result.data);
+            parsedData.push(result.data);
+          },
+          complete : ()=>{
+            res.status(201).json(parsedData);
+          }
+        })
+      }
+      else{
+        res.status(404).json("no file selected")
       }
     } catch (error) {
       res.status(404).json(error);

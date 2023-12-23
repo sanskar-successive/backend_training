@@ -6,5 +6,9 @@ class BookRepository extends BaseRepository<IBook> {
   constructor() {
     super(Book);
   }
+
+  public bulkUpload = async (books : IBook[]) : Promise<void> =>{
+    await Book.insertMany(books);
+  }
 }
 export default BookRepository;

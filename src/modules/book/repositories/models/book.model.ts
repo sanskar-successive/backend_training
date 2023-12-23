@@ -17,25 +17,25 @@ const authorSchema: Schema<IAuthor> = new mongoose.Schema({
 
 
 
-const reviewSchema: Schema<IReview> = new mongoose.Schema({
-  userId: {
-    type: String,
-    required: true,
-  },
-  bookId: {
-    type: String,
-    required: true,
-  },
-  rating: {
-    type: Number,
-    required: true,
-  },
-  text: {
-    type: String,
-    required: true,
-  },
-  positive: { type: Boolean },
-}, {timestamps : true});
+// const reviewSchema: Schema<IReview> = new mongoose.Schema({
+//   userId: {
+//     type: String,
+//     required: true,
+//   },
+//   bookId: {
+//     type: String,
+//     required: true,
+//   },
+//   rating: {
+//     type: Number,
+//     required: true,
+//   },
+//   text: {
+//     type: String,
+//     required: true,
+//   },
+//   positive: { type: Boolean },
+// }, {timestamps : true});
 
 
 
@@ -50,7 +50,7 @@ const moreDetailsSchema: Schema<IMoreDetails> = new mongoose.Schema({
     required: true,
   },
   firstPublished: {
-    type: Date,
+    type: String,
     required: true,
   },
   seller: {
@@ -91,7 +91,7 @@ const bookSchema: Schema<IBook> = new mongoose.Schema({
   },
   coverImage: { type: String },
   category: {
-    type: [String],
+    type: String,
     required: true,
   },
   author: authorSchema,
@@ -99,7 +99,6 @@ const bookSchema: Schema<IBook> = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  reviews: [reviewSchema],
   price: {
     type: Number,
     required: true,

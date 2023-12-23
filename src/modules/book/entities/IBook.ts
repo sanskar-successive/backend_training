@@ -3,10 +3,9 @@ export interface IBook {
     coverImage ?: string,
     price : number,
     rating : number,
-    category : string[],
+    category : string,
     author : IAuthor,
     moreDetails : IMoreDetails,
-    reviews ?: IReview[],
 }
 
 export interface IAuthor{
@@ -24,13 +23,12 @@ export interface IReview{
 
 export interface IMoreDetails{
     seller : string,
-    language : Enumerator,
+    language : string,
     description : string,
     fileSize : number,
     pages : number,
-    ISBN : string,
     publisher : string,
-    firstPublished : Date,
+    firstPublished : string,
     verified : boolean,
     edition : number,
 }
