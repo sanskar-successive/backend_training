@@ -1,57 +1,69 @@
-import { NextFunction, Request, Response } from "express";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-import users from "../utils/data/apiData.json" assert { type: "json" };
-import CreateError from "http-errors";
+import { Request, Response } from "express";
+import UserService from "../services/user.service.js";
+import IUser from "../interfaces/IUser.js";
 
-class UserController {
-  public getAllUsers = (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): void => {
-    try {
-      res.status(200).json(users);
-    } catch (err) {
-      next(CreateError(400, "something went wrong"));
-    }
-  };
+class UserController{
 
-  public getUserById = (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): void => {
-    try {
-      const { id } = req.params;
-      const user = users.find((user) => user.id === parseInt(id));
-      if (user) res.json(user);
-      else res.status(404).json({ error: "user not found" });
-    } catch (err) {
-      next(CreateError(400, "something went wrong"));
-    }
-  };
+  private userService : UserService;
 
-  public createUser = (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): void => {
-    try {
-      const newUser = req.body;
-      const __filename = fileURLToPath(import.meta.url);
-      const __dirname = path.dirname(__filename);
-      const filePath = path.join(__dirname, "../utils/data/apiData.json");
-      users.push(newUser);
-      fs.writeFileSync(filePath, JSON.stringify(users));
-      res
-        .status(201)
-        .json({ message: "User created successfully", user: newUser });
-    } catch (err) {
-      next(CreateError(400, "something went wrong"));
+  constructor(){
+    this.userService = new UserService();
+  }
+
+  public getAllUsers = async (req : Request, res : Response) : Promise<void> => {
+    try{
+      const users : IUser[] | null = await this.userService.getAllUsers();
+      res.status(200).json(users); 
     }
-  };
+    catch(err){
+      res.status(500).send(err);
+    }    
+  }
+
+  public getUser = async (req : Request, res : Response) : Promise<void> => {
+    try{
+      const {userId} = req.params;
+      const user : IUser | null = await this.userService.getUserById(userId);
+      res.status(200).json(user);
+    }
+    catch(err){
+      res.status(500).send(err);
+    }    
+  }
+
+  public createNewUser = async (req : Request, res : Response) : Promise<void> => {
+    try{
+      const user : IUser = req.body;
+      await this.userService.createUser(user);
+      res.status(201).json({message:"user created successfully", user : user});
+    }
+    catch(err){
+      res.status(500).send(err);
+    }
+  }
+
+  public updateUser = async (req : Request, res : Response) : Promise<void> => {
+    try{
+      const {userId} = req.params;
+      const updatedUser = req.body;
+      await this.userService.updateUser(userId, updatedUser);
+      res.status(200).json("user updated successfully");
+    }
+    catch(err){
+      res.status(500).send(err);
+    }
+  }
+
+  public deleteUser = async (req : Request, res : Response) : Promise<void> => {
+    try{
+      const {userId} = req.params;
+      await this.userService.deleteUser(userId);
+      res.status(200).json("user deleted successfully");
+    }
+    catch(err){
+      res.status(500).send(err);
+    }
+    
+  }
 }
-
 export default UserController;
